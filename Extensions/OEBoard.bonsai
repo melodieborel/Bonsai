@@ -33,11 +33,6 @@
       <Expression xsi:type="SubscribeSubject">
         <Name>pathName</Name>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>./data</Value>
-        </Combinator>
-      </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Value" DisplayName="fileBaseName" Description="Base name of files for recording of ePhys signals" />
       </Expression>
@@ -60,7 +55,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
-          <dsp:Path>./data_2024-02-29_09-55-06/OE_32ch_data_.bin</dsp:Path>
+          <dsp:Path />
           <dsp:Suffix>Timestamp</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -71,15 +66,14 @@
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="0" To="2" Label="Source1" />
-      <Edge From="2" To="10" Label="Source1" />
-      <Edge From="3" To="4" Label="Source1" />
-      <Edge From="4" To="7" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
-      <Edge From="6" To="7" Label="Source2" />
+      <Edge From="2" To="9" Label="Source1" />
+      <Edge From="3" To="6" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source2" />
+      <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="8" To="9" Label="Source1" />
-      <Edge From="9" To="10" Label="Source2" />
-      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="8" To="9" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

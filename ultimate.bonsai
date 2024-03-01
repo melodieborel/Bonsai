@@ -34,10 +34,10 @@
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
         <videoBaseName>miniscope_.avi</videoBaseName>
         <Gain>High</Gain>
-        <LEDBrightness>100</LEDBrightness>
+        <LEDBrightness>18.82352941176471</LEDBrightness>
         <LiquidLensVoltage>47.006</LiquidLensVoltage>
         <FrameRate>FPS30Hz</FrameRate>
-        <InterleaveLED>false</InterleaveLED>
+        <InterleaveLED>true</InterleaveLED>
         <DeviceAddress>
           <HardwareSlot>
             <Driver>riffa</Driver>
@@ -51,6 +51,13 @@
         <fileBaseName>OE_32ch_data_.bin</fileBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\Commutator.bonsai">
+        <DeviceAddress>
+          <HardwareSlot>
+            <Driver>riffa</Driver>
+            <Index>0</Index>
+          </HardwareSlot>
+          <Address>8</Address>
+        </DeviceAddress>
         <fileBaseName>heading_.csv</fileBaseName>
         <PortName>COM4</PortName>
       </Expression>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Bonsai.OpenEphysMB</id>
+    <version>1.1.0</version>
+    <title>Bonsai - Open Ephys Library (MB)</title>
+    <authors>Aarón Cuevas López</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/open-ephys/Bonsai.OpenEphys</projectUrl>
+    <description>Bonsai Library for controlling some Open Ephys hardware</description>
+    <copyright>Copyright © Aarón Cuevas López</copyright>
+    <tags>Bonsai Rx Open Ephys ONI Neural Interface Electrophysiology</tags>
+    <repository type="git" url="https://github.com/open-ephys/Bonsai.OpenEphys" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="Bonsai.Core" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="OpenCV.Net" version="3.4.1" exclude="Build,Analyzers" />
+        <dependency id="Rhythm.Net" version="1.5.0" exclude="Build,Analyzers" />
+        <dependency id="clroni" version="6.1.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.7.2" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

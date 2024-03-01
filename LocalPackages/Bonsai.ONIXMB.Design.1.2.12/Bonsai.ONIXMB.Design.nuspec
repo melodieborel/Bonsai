@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Bonsai.ONIXMB.Design</id>
+    <version>1.2.12</version>
+    <title>Bonsai - ONIX Design Library (MB)</title>
+    <authors>Jon Newman</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>onix_open_ephys_logo.png</icon>
+    <projectUrl>https://open-ephys.github.io/onix-docs/index.html</projectUrl>
+    <description>Bonsai design library for Bonsai.ONIX.</description>
+    <copyright>Copyright © Open Ephys, Inc.</copyright>
+    <tags>Bonsai Rx Open Ephys ONI Neural Interface ONIX Electrophysiology Miniscope</tags>
+    <repository type="git" url="https://github.com/open-ephys/Bonsai.ONIX" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="Bonsai.ONIX" version="1.2.13" exclude="Build,Analyzers" />
+        <dependency id="Bonsai.Shaders" version="0.26.0" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="5.0.2" exclude="Build,Analyzers" />
+        <dependency id="TinyCsvParser" version="2.7.0" exclude="Build,Analyzers" />
+        <dependency id="ZedGraph" version="5.1.7" exclude="Build,Analyzers" />
+        <dependency id="clroni" version="6.1.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.DirectoryServices" targetFramework=".NETFramework4.7.2" />
+      <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.7.2" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

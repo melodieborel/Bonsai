@@ -3,3 +3,5 @@ VisualStudio
 NuGet
 *.exe
 *.exe.settings
+
+Extensions/*.layout

@@ -34,7 +34,7 @@
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
         <videoBaseName>miniscope_.avi</videoBaseName>
         <Gain>High</Gain>
-        <LEDBrightness>18.82352941176471</LEDBrightness>
+        <LEDBrightness>10.588235294117652</LEDBrightness>
         <LiquidLensVoltage>47.006</LiquidLensVoltage>
         <FrameRate>FPS30Hz</FrameRate>
         <InterleaveLED>true</InterleaveLED>

@@ -97,9 +97,9 @@
     <VisualizerSettings>
       <MatVisualizer>
         <XMin>0</XMin>
-        <XMax>102400</XMax>
+        <XMax>1</XMax>
         <YMin>0</YMin>
-        <YMax>100000</YMax>
+        <YMax>1.1</YMax>
         <AutoScaleX>true</AutoScaleX>
         <AutoScaleY>true</AutoScaleY>
         <SelectedPage>0</SelectedPage>
@@ -127,8 +127,8 @@
       <MatVisualizer>
         <XMin>0</XMin>
         <XMax>100</XMax>
-        <YMin>-0.8</YMin>
-        <YMax>0.6</YMax>
+        <YMin>-0.1</YMin>
+        <YMax>1.0000000000000002</YMax>
         <AutoScaleX>true</AutoScaleX>
         <AutoScaleY>true</AutoScaleY>
         <SelectedPage>0</SelectedPage>

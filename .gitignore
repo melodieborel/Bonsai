@@ -1,5 +1,7 @@
 Packages
-NuGet
 VisualStudio
+NuGet
 *.exe
 *.exe.settings
+
+Extensions/*.layout

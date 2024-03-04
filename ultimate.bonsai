@@ -29,12 +29,14 @@
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
         <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
+        <Index>0</Index>
+        <CaptureProperties />
         <videoBaseName>webcam_video_.avi</videoBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
         <videoBaseName>miniscope_.avi</videoBaseName>
         <Gain>High</Gain>
-        <LEDBrightness>10.588235294117652</LEDBrightness>
+        <LEDBrightness>10.980392156862749</LEDBrightness>
         <LiquidLensVoltage>47.006</LiquidLensVoltage>
         <FrameRate>FPS30Hz</FrameRate>
         <InterleaveLED>true</InterleaveLED>
@@ -47,10 +49,7 @@
         </DeviceAddress>
         <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <fileBaseName>OE_32ch_data_.bin</fileBaseName>
-      </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Commutator.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\CommutatorMiniscope.bonsai">
         <DeviceAddress>
           <HardwareSlot>
             <Driver>riffa</Driver>
@@ -60,6 +59,16 @@
         </DeviceAddress>
         <fileBaseName>heading_.csv</fileBaseName>
         <PortName>COM4</PortName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+        <fileBaseName>OE_32ch_data_.bin</fileBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
+        <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>
+        <LFPClockBaseName>NP_LFPtimestamps_.raw</LFPClockBaseName>
+        <LFPDataBaseName>NP_LFPdata_.raw</LFPDataBaseName>
+        <clockBaseName>NP_timestamps_.raw</clockBaseName>
+        <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
       </Expression>
     </Nodes>
     <Edges>

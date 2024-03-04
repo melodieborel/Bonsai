@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:ONIContext">
+          <p1:ContextConfiguration>
+            <p1:Slot>
+              <p1:Driver>riffa</p1:Driver>
+              <p1:Index>0</p1:Index>
+            </p1:Slot>
+            <p1:ReadSize>15000</p1:ReadSize>
+            <p1:WriteSize>15000</p1:WriteSize>
+          </p1:ContextConfiguration>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>../../../Documents/data/Expe</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>folderBaseName</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
+        <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
+        <videoBaseName>webcam_video_.avi</videoBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
+        <videoBaseName>miniscope_.avi</videoBaseName>
+        <Gain>High</Gain>
+        <LEDBrightness>10.980392156862749</LEDBrightness>
+        <LiquidLensVoltage>47.006</LiquidLensVoltage>
+        <FrameRate>FPS30Hz</FrameRate>
+        <InterleaveLED>true</InterleaveLED>
+        <DeviceAddress>
+          <HardwareSlot>
+            <Driver>riffa</Driver>
+            <Index>0</Index>
+          </HardwareSlot>
+          <Address>8</Address>
+        </DeviceAddress>
+        <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <fileBaseName>OE_32ch_data_.bin</fileBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Commutator.bonsai">
+        <DeviceAddress>
+          <HardwareSlot>
+            <Driver>riffa</Driver>
+            <Index>0</Index>
+          </HardwareSlot>
+          <Address>8</Address>
+        </DeviceAddress>
+        <fileBaseName>heading_.csv</fileBaseName>
+        <PortName>COM4</PortName>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="1" To="2" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

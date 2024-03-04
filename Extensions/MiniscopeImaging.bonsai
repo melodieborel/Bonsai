@@ -38,6 +38,7 @@
         <Property Name="FrameRate" />
         <Property Name="InterleaveLED" />
         <Property Name="DeviceAddress" />
+        <Property Name="EnableStream" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:MiniscopeV4Device">

@@ -36,7 +36,7 @@
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
         <videoBaseName>miniscope_.avi</videoBaseName>
         <Gain>High</Gain>
-        <LEDBrightness>10.980392156862749</LEDBrightness>
+        <LEDBrightness>11.764705882352942</LEDBrightness>
         <LiquidLensVoltage>47.006</LiquidLensVoltage>
         <FrameRate>FPS30Hz</FrameRate>
         <InterleaveLED>true</InterleaveLED>
@@ -59,9 +59,24 @@
         </DeviceAddress>
         <fileBaseName>heading_.csv</fileBaseName>
         <PortName>COM4</PortName>
+        <tsBaseName>headingTS_.csv</tsBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <fileBaseName>OE_32ch_data_.bin</fileBaseName>
+        <BoardLeds>true</BoardLeds>
+        <BufferCount>1024</BufferCount>
+        <SampleRate>SampleRate20000Hz</SampleRate>
+        <BoardIndex>-1</BoardIndex>
+        <ExternalFastSettleEnabled>false</ExternalFastSettleEnabled>
+        <LowerBandwidth>0.1</LowerBandwidth>
+        <UpperBandwidth>7500</UpperBandwidth>
+        <DspCutoffFrequency>1</DspCutoffFrequency>
+        <DspEnabled>true</DspEnabled>
+        <CableDelayA xsi:nil="true" />
+        <CableDelayB xsi:nil="true" />
+        <CableDelayC xsi:nil="true" />
+        <CableDelayD xsi:nil="true" />
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <timestampsBaseName>OE_32ch_timestamps_.csv</timestampsBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
         <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>

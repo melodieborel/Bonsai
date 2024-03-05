@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p2="clr-namespace:Bonsai.JonsUtils;assembly=Bonsai.JonsUtils"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:ONIContext">
+          <p1:ContextConfiguration>
+            <p1:Slot>
+              <p1:Driver>riffa</p1:Driver>
+              <p1:Index>0</p1:Index>
+            </p1:Slot>
+            <p1:ReadSize>3072</p1:ReadSize>
+            <p1:WriteSize>3072</p1:WriteSize>
+          </p1:ContextConfiguration>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>../../../Documents/data/Expe</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>folderBaseName</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:AnalogIODevice">
+          <p1:DeviceAddress>
+            <p1:HardwareSlot>
+              <p1:Driver>riffa</p1:Driver>
+              <p1:Index>0</p1:Index>
+            </p1:HardwareSlot>
+            <p1:Address>6</p1:Address>
+          </p1:DeviceAddress>
+          <p1:BlockSize>100</p1:BlockSize>
+          <p1:DataType>Volts</p1:DataType>
+          <p1:EnableStream>true</p1:EnableStream>
+          <p1:InputRange00>TenVolts</p1:InputRange00>
+          <p1:InputRange01>TenVolts</p1:InputRange01>
+          <p1:InputRange02>TenVolts</p1:InputRange02>
+          <p1:InputRange03>TenVolts</p1:InputRange03>
+          <p1:InputRange04>TenVolts</p1:InputRange04>
+          <p1:InputRange05>TenVolts</p1:InputRange05>
+          <p1:InputRange06>TenVolts</p1:InputRange06>
+          <p1:InputRange07>TenVolts</p1:InputRange07>
+          <p1:InputRange08>TenVolts</p1:InputRange08>
+          <p1:InputRange09>TenVolts</p1:InputRange09>
+          <p1:InputRange10>TenVolts</p1:InputRange10>
+          <p1:InputRange11>TenVolts</p1:InputRange11>
+          <p1:Direction00>Input</p1:Direction00>
+          <p1:Direction01>Input</p1:Direction01>
+          <p1:Direction02>Input</p1:Direction02>
+          <p1:Direction03>Input</p1:Direction03>
+          <p1:Direction04>Input</p1:Direction04>
+          <p1:Direction05>Input</p1:Direction05>
+          <p1:Direction06>Input</p1:Direction06>
+          <p1:Direction07>Input</p1:Direction07>
+          <p1:Direction08>Input</p1:Direction08>
+          <p1:Direction09>Input</p1:Direction09>
+          <p1:Direction10>Input</p1:Direction10>
+          <p1:Direction11>Input</p1:Direction11>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Data</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Clock</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>HubSyncCounter</Selector>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <BoardLeds>true</BoardLeds>
+          <BufferCount>256</BufferCount>
+          <SampleRate>SampleRate20000Hz</SampleRate>
+          <BoardIndex>-1</BoardIndex>
+          <ExternalFastSettleEnabled>false</ExternalFastSettleEnabled>
+          <LowerBandwidth>0.1</LowerBandwidth>
+          <UpperBandwidth>7500</UpperBandwidth>
+          <DspCutoffFrequency>1</DspCutoffFrequency>
+          <DspEnabled>true</DspEnabled>
+          <CableDelayA xsi:nil="true" />
+          <CableDelayB xsi:nil="true" />
+          <CableDelayC xsi:nil="true" />
+          <CableDelayD xsi:nil="true" />
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_32ch_timestamps_.csv</timestampsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:SelectChannels" />
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p2:OpenCVMatUDPClient">
+            <p2:addr>localhost</p2:addr>
+            <p2:port>9001</p2:port>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
+          <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
+          <Index>0</Index>
+          <CaptureProperties />
+          <videoBaseName>webcam_video_.avi</videoBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
+          <videoBaseName>miniscope_.avi</videoBaseName>
+          <Gain>High</Gain>
+          <LEDBrightness>100</LEDBrightness>
+          <LiquidLensVoltage>24.4</LiquidLensVoltage>
+          <FrameRate>FPS30Hz</FrameRate>
+          <InterleaveLED>true</InterleaveLED>
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>8</Address>
+          </DeviceAddress>
+          <EnableStream>true</EnableStream>
+          <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\CommutatorMiniscope.bonsai">
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>8</Address>
+          </DeviceAddress>
+          <fileBaseName>heading_.csv</fileBaseName>
+          <PortName>COM4</PortName>
+          <tsBaseName>headingTS_.csv</tsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>9</Address>
+          </DeviceAddress>
+          <BlockSize>30</BlockSize>
+          <EnableStream>true</EnableStream>
+          <RequireSNMatch>false</RequireSNMatch>
+          <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>
+          <LFPClockBaseName>NP_LFPtimestamps_.raw</LFPClockBaseName>
+          <LFPDataBaseName>NP_LFPdata_.raw</LFPDataBaseName>
+          <clockBaseName>NP_timestamps_.raw</clockBaseName>
+          <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:SelectChannels">
+            <dsp:Channels>
+              <dsp:int>1</dsp:int>
+              <dsp:int>2</dsp:int>
+              <dsp:int>3</dsp:int>
+              <dsp:int>5</dsp:int>
+              <dsp:int>6</dsp:int>
+              <dsp:int>7</dsp:int>
+              <dsp:int>9</dsp:int>
+              <dsp:int>10</dsp:int>
+              <dsp:int>11</dsp:int>
+              <dsp:int>13</dsp:int>
+              <dsp:int>14</dsp:int>
+              <dsp:int>15</dsp:int>
+            </dsp:Channels>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p2:OpenCVMatUDPClient">
+            <p2:addr>localhost</p2:addr>
+            <p2:port>9002</p2:port>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p1:RealTimeFunctionGenerator">
+            <p1:BufferLength>120</p1:BufferLength>
+            <p1:Frequency>100</p1:Frequency>
+            <p1:Waveform>Sine</p1:Waveform>
+            <p1:Depth>F64</p1:Depth>
+            <p1:Amplitude>1</p1:Amplitude>
+            <p1:Offset>0</p1:Offset>
+            <p1:Phase>0</p1:Phase>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p1:AnalogIODevice">
+            <p1:DeviceAddress>
+              <p1:HardwareSlot>
+                <p1:Driver>riffa</p1:Driver>
+                <p1:Index>0</p1:Index>
+              </p1:HardwareSlot>
+              <p1:Address>6</p1:Address>
+            </p1:DeviceAddress>
+            <p1:BlockSize>100</p1:BlockSize>
+            <p1:DataType>S16</p1:DataType>
+            <p1:EnableStream>true</p1:EnableStream>
+            <p1:InputRange00>TenVolts</p1:InputRange00>
+            <p1:InputRange01>TenVolts</p1:InputRange01>
+            <p1:InputRange02>TenVolts</p1:InputRange02>
+            <p1:InputRange03>TenVolts</p1:InputRange03>
+            <p1:InputRange04>TenVolts</p1:InputRange04>
+            <p1:InputRange05>TenVolts</p1:InputRange05>
+            <p1:InputRange06>TenVolts</p1:InputRange06>
+            <p1:InputRange07>TenVolts</p1:InputRange07>
+            <p1:InputRange08>TenVolts</p1:InputRange08>
+            <p1:InputRange09>TenVolts</p1:InputRange09>
+            <p1:InputRange10>TenVolts</p1:InputRange10>
+            <p1:InputRange11>TenVolts</p1:InputRange11>
+            <p1:Direction00>Input</p1:Direction00>
+            <p1:Direction01>Input</p1:Direction01>
+            <p1:Direction02>Input</p1:Direction02>
+            <p1:Direction03>Input</p1:Direction03>
+            <p1:Direction04>Input</p1:Direction04>
+            <p1:Direction05>Input</p1:Direction05>
+            <p1:Direction06>Input</p1:Direction06>
+            <p1:Direction07>Input</p1:Direction07>
+            <p1:Direction08>Input</p1:Direction08>
+            <p1:Direction09>Input</p1:Direction09>
+            <p1:Direction10>Input</p1:Direction10>
+            <p1:Direction11>Input</p1:Direction11>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Data</Selector>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Clock</Selector>
+        </Builder>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="3" To="5" Label="Source1" />
+      <Edge From="3" To="6" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="18" To="20" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

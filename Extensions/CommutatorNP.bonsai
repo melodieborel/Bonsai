@@ -11,16 +11,18 @@
     <Nodes>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="DeviceAddress" />
+        <Property Name="EnableStream" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:MiniscopeV4BNO055Device">
+        <Combinator xsi:type="p1:BNO055Device">
           <p1:DeviceAddress>
             <p1:HardwareSlot>
               <p1:Driver>riffa</p1:Driver>
               <p1:Index>0</p1:Index>
             </p1:HardwareSlot>
-            <p1:Address>8</p1:Address>
+            <p1:Address>9</p1:Address>
           </p1:DeviceAddress>
+          <p1:EnableStream>false</p1:EnableStream>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -73,7 +75,7 @@ def process(value):
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>heading_.csv</Value>
+          <Value>headingNP_.csv</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">

@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p2="clr-namespace:Bonsai.JonsUtils;assembly=Bonsai.JonsUtils"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Direction00" />
+        <Property Name="Direction01" />
+        <Property Name="Direction02" />
+        <Property Name="Direction03" />
+        <Property Name="Direction04" />
+        <Property Name="Direction05" />
+        <Property Name="Direction06" />
+        <Property Name="Direction07" />
+        <Property Name="Direction08" />
+        <Property Name="Direction09" />
+        <Property Name="Direction10" />
+        <Property Name="Direction11" />
+        <Property Name="InputRange00" />
+        <Property Name="InputRange01" />
+        <Property Name="InputRange02" />
+        <Property Name="InputRange03" />
+        <Property Name="InputRange04" />
+        <Property Name="InputRange05" />
+        <Property Name="InputRange06" />
+        <Property Name="InputRange08" />
+        <Property Name="InputRange07" />
+        <Property Name="InputRange09" />
+        <Property Name="InputRange10" />
+        <Property Name="InputRange11" />
+        <Property Name="DeviceAddress" />
+        <Property Name="BlockSize" />
+        <Property Name="DataType" />
+        <Property Name="EnableStream" />
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Frequency" Category="Stimulation" />
+        <Property Name="BufferLength" Category="Stimulation" />
+        <Property Name="Waveform" Category="Stimulation" />
+        <Property Name="Amplitude" Category="Stimulation" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RealTimeFunctionGenerator">
+          <p1:BufferLength>12</p1:BufferLength>
+          <p1:Frequency>400</p1:Frequency>
+          <p1:Waveform>Square</p1:Waveform>
+          <p1:Depth>S16</p1:Depth>
+          <p1:Amplitude>1</p1:Amplitude>
+          <p1:Offset>0</p1:Offset>
+          <p1:Phase>0</p1:Phase>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:AnalogIODevice">
+          <p1:DeviceAddress>
+            <p1:HardwareSlot>
+              <p1:Driver>riffa</p1:Driver>
+              <p1:Index>0</p1:Index>
+            </p1:HardwareSlot>
+            <p1:Address>6</p1:Address>
+          </p1:DeviceAddress>
+          <p1:BlockSize>100</p1:BlockSize>
+          <p1:DataType>S16</p1:DataType>
+          <p1:EnableStream>true</p1:EnableStream>
+          <p1:InputRange00>TenVolts</p1:InputRange00>
+          <p1:InputRange01>TenVolts</p1:InputRange01>
+          <p1:InputRange02>TenVolts</p1:InputRange02>
+          <p1:InputRange03>TenVolts</p1:InputRange03>
+          <p1:InputRange04>TenVolts</p1:InputRange04>
+          <p1:InputRange05>TenVolts</p1:InputRange05>
+          <p1:InputRange06>TenVolts</p1:InputRange06>
+          <p1:InputRange07>TenVolts</p1:InputRange07>
+          <p1:InputRange08>TenVolts</p1:InputRange08>
+          <p1:InputRange09>TenVolts</p1:InputRange09>
+          <p1:InputRange10>TenVolts</p1:InputRange10>
+          <p1:InputRange11>TenVolts</p1:InputRange11>
+          <p1:Direction00>Output</p1:Direction00>
+          <p1:Direction01>Input</p1:Direction01>
+          <p1:Direction02>Input</p1:Direction02>
+          <p1:Direction03>Input</p1:Direction03>
+          <p1:Direction04>Input</p1:Direction04>
+          <p1:Direction05>Input</p1:Direction05>
+          <p1:Direction06>Input</p1:Direction06>
+          <p1:Direction07>Input</p1:Direction07>
+          <p1:Direction08>Input</p1:Direction08>
+          <p1:Direction09>Input</p1:Direction09>
+          <p1:Direction10>Input</p1:Direction10>
+          <p1:Direction11>Input</p1:Direction11>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Data</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timestamp" />
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>timestampedAnalogData</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Clock</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>HubSyncCounter</Selector>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="port" DisplayName="ONIXPortOE" />
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Channels" DisplayName="ONIXChannelsOE" />
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>timestampedAnalogData</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Value</Selector>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>pathName</Name>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="dataBaseName" Description="Base name of files for recording of ePhys signals" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>Analog_data_.bin</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:CombineLatest" />
+      </Expression>
+      <Expression xsi:type="Format">
+        <Format>{0}/{1}</Format>
+        <Selector>Item1,Item2</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Path" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path />
+          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Overwrite>false</dsp:Overwrite>
+          <dsp:Layout>ColumnMajor</dsp:Layout>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:SelectChannels" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:OpenCVMatUDPClient">
+          <p2:addr>localhost</p2:addr>
+          <p2:port>9001</p2:port>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="SubscribeSubject">
+        <Name>timestampedAnalogData</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Timestamp</Selector>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>pathName</Name>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="timestampsBaseName" Description="Base name for file saving webcam timestamps" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>Analog_timestamps_.csv</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:CombineLatest" />
+      </Expression>
+      <Expression xsi:type="Format">
+        <Format>{0}/{1}</Format>
+        <Selector>Item1,Item2</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="FileName" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="io:CsvWriter">
+        <io:FileName>./data_2024-02-29_09-55-06/webcam_timestamps_.csv</io:FileName>
+        <io:Append>false</io:Append>
+        <io:Overwrite>false</io:Overwrite>
+        <io:Suffix>Timestamp</io:Suffix>
+        <io:IncludeHeader>false</io:IncludeHeader>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="3" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source2" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="3" To="7" Label="Source1" />
+      <Edge From="3" To="8" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="9" To="21" Label="Source1" />
+      <Edge From="10" To="20" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="12" To="19" Label="Source1" />
+      <Edge From="13" To="16" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="16" Label="Source2" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="19" Label="Source2" />
+      <Edge From="19" To="20" Label="Source2" />
+      <Edge From="19" To="22" Label="Source1" />
+      <Edge From="20" To="21" Label="Source2" />
+      <Edge From="23" To="24" Label="Source1" />
+      <Edge From="24" To="31" Label="Source1" />
+      <Edge From="25" To="28" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="27" To="28" Label="Source2" />
+      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="29" To="30" Label="Source1" />
+      <Edge From="30" To="31" Label="Source2" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

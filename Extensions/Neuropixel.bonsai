@@ -4,6 +4,7 @@
                  xmlns:p1="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p2="clr-namespace:Bonsai.JonsUtils;assembly=Bonsai.JonsUtils"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -25471,11 +25472,41 @@
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
       </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="port" DisplayName="NPXPortOE" />
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Channels" DisplayName="NPXChannelsOE" />
+      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>NPdevice</Name>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>SpikeData</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:SelectChannels">
+          <dsp:Channels>
+            <dsp:int>1</dsp:int>
+            <dsp:int>2</dsp:int>
+            <dsp:int>3</dsp:int>
+            <dsp:int>5</dsp:int>
+            <dsp:int>6</dsp:int>
+            <dsp:int>7</dsp:int>
+            <dsp:int>9</dsp:int>
+            <dsp:int>10</dsp:int>
+            <dsp:int>11</dsp:int>
+            <dsp:int>13</dsp:int>
+            <dsp:int>14</dsp:int>
+            <dsp:int>15</dsp:int>
+          </dsp:Channels>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:OpenCVMatUDPClient">
+          <p2:addr>localhost</p2:addr>
+          <p2:port>9002</p2:port>
+        </Combinator>
       </Expression>
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="SubscribeSubject">
@@ -25544,15 +25575,19 @@
       <Edge From="35" To="36" Label="Source1" />
       <Edge From="36" To="37" Label="Source1" />
       <Edge From="37" To="38" Label="Source2" />
-      <Edge From="39" To="40" Label="Source1" />
-      <Edge From="40" To="41" Label="Source1" />
-      <Edge From="40" To="48" Label="Source1" />
+      <Edge From="39" To="44" Label="Source1" />
+      <Edge From="40" To="43" Label="Source1" />
+      <Edge From="41" To="42" Label="Source1" />
+      <Edge From="42" To="43" Label="Source2" />
       <Edge From="42" To="45" Label="Source1" />
-      <Edge From="43" To="44" Label="Source1" />
-      <Edge From="44" To="45" Label="Source2" />
-      <Edge From="45" To="46" Label="Source1" />
-      <Edge From="46" To="47" Label="Source1" />
-      <Edge From="47" To="48" Label="Source2" />
+      <Edge From="42" To="52" Label="Source1" />
+      <Edge From="43" To="44" Label="Source2" />
+      <Edge From="46" To="49" Label="Source1" />
+      <Edge From="47" To="48" Label="Source1" />
+      <Edge From="48" To="49" Label="Source2" />
+      <Edge From="49" To="50" Label="Source1" />
+      <Edge From="50" To="51" Label="Source1" />
+      <Edge From="51" To="52" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

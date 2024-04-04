@@ -24,8 +24,8 @@
           <Nodes>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="wie:KeyDown">
-                <wie:Filter>None</wie:Filter>
-                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                <wie:Filter>Space</wie:Filter>
+                <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
               </Combinator>
             </Expression>
             <Expression xsi:type="Equal">
@@ -38,8 +38,8 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="wie:KeyDown">
-                <wie:Filter>None</wie:Filter>
-                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                <wie:Filter>F</wie:Filter>
+                <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
               </Combinator>
             </Expression>
             <Expression xsi:type="Equal">
@@ -71,6 +71,25 @@
             </Expression>
             <Expression xsi:type="rx:PublishSubject">
               <Name>nTrials</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>trialDuration</Name>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="DueTime" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timer">
+                <rx:DueTime>PT40S</rx:DueTime>
+                <rx:Period>PT0S</rx:Period>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="BooleanProperty">
+                <Value>false</Value>
+              </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>pathName</Name>
@@ -113,7 +132,7 @@
               <Selector>Timestamp</Selector>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>../../../Documents/data/Expe_2024-04-03_02-10-46/video_timestamps_.csv</io:FileName>
+              <io:FileName>../../../Documents/data/Expe_2024-04-04_02-31-28/video_timestamps_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -126,12 +145,7 @@
             <Expression xsi:type="MemberSelector">
               <Selector>Image</Selector>
             </Expression>
-            <Expression xsi:type="rx:PublishSubject">
-              <Name>Images</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Images</Name>
-            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="SubscribeSubject">
               <Name>pathName</Name>
             </Expression>
@@ -157,7 +171,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:VideoWriter">
-                <cv:FileName>../../../Documents/data/Expe_2024-04-03_02-10-46/video_.avi</cv:FileName>
+                <cv:FileName>../../../Documents/data/Expe_2024-04-04_02-31-28/video_.avi</cv:FileName>
                 <cv:Suffix>Timestamp</cv:Suffix>
                 <cv:Buffered>true</cv:Buffered>
                 <cv:Overwrite>false</cv:Overwrite>
@@ -171,16 +185,6 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai" />
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Images</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>trialDuration</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:CombineLatest" />
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
@@ -191,31 +195,31 @@
             <Edge From="7" To="8" Label="Source1" />
             <Edge From="9" To="10" Label="Source1" />
             <Edge From="10" To="11" Label="Source1" />
-            <Edge From="12" To="15" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
             <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="15" Label="Source2" />
-            <Edge From="15" To="16" Label="Source1" />
-            <Edge From="16" To="17" Label="Source1" />
-            <Edge From="17" To="22" Label="Source1" />
-            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="16" To="19" Label="Source1" />
+            <Edge From="17" To="18" Label="Source1" />
+            <Edge From="18" To="19" Label="Source2" />
             <Edge From="19" To="20" Label="Source1" />
             <Edge From="20" To="21" Label="Source1" />
-            <Edge From="20" To="24" Label="Source1" />
-            <Edge From="21" To="22" Label="Source2" />
+            <Edge From="21" To="26" Label="Source1" />
             <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="24" Label="Source1" />
             <Edge From="24" To="25" Label="Source1" />
-            <Edge From="25" To="26" Label="Source1" />
-            <Edge From="27" To="34" Label="Source1" />
-            <Edge From="28" To="31" Label="Source1" />
+            <Edge From="24" To="28" Label="Source1" />
+            <Edge From="25" To="26" Label="Source2" />
+            <Edge From="26" To="27" Label="Source1" />
+            <Edge From="28" To="29" Label="Source1" />
             <Edge From="29" To="30" Label="Source1" />
-            <Edge From="30" To="31" Label="Source2" />
-            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="29" To="37" Label="Source2" />
+            <Edge From="31" To="34" Label="Source1" />
             <Edge From="32" To="33" Label="Source1" />
             <Edge From="33" To="34" Label="Source2" />
             <Edge From="34" To="35" Label="Source1" />
-            <Edge From="36" To="38" Label="Source1" />
-            <Edge From="37" To="38" Label="Source2" />
-            <Edge From="38" To="39" Label="Source1" />
+            <Edge From="35" To="36" Label="Source1" />
+            <Edge From="36" To="37" Label="Source1" />
+            <Edge From="37" To="38" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>

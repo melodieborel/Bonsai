@@ -3,6 +3,8 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:p2="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -13,7 +15,7 @@
               <p1:Driver>riffa</p1:Driver>
               <p1:Index>0</p1:Index>
             </p1:Slot>
-            <p1:ReadSize>1240</p1:ReadSize>
+            <p1:ReadSize>2584</p1:ReadSize>
             <p1:WriteSize>1240</p1:WriteSize>
           </p1:ContextConfiguration>
         </Combinator>
@@ -26,9 +28,74 @@
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>folderBaseName</Name>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>B</wie:Filter>
+          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Equal">
+        <Operand xsi:type="WorkflowProperty" TypeArguments="p2:Keys">
+          <Value>Space</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>triggerRec</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>F</wie:Filter>
+          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Equal">
+        <Operand xsi:type="WorkflowProperty" TypeArguments="p2:Keys">
+          <Value>F</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>triggerStop</Name>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="trialDuration" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="TimeSpanProperty">
+          <Value>PT0S</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>trialDuration</Name>
+      </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Direction00" Category="VmIntra" />
+        <Property Name="InputRange00" Category="VmIntra" />
+        <Property Name="Direction01" Category="Vm" />
+        <Property Name="Direction02" Category="Puff-LED" />
+        <Property Name="Direction03" Category="Im" />
+        <Property Name="Direction04" Category="S1 LFP" />
+        <Property Name="Direction05" Category="M1 LFP" />
+        <Property Name="Direction06" Category="EEG" />
+        <Property Name="Direction07" Category="EMG" />
+        <Property Name="Direction08" Category="Touch" />
+        <Property Name="Direction09" Category="CamTTL" />
+        <Property Name="Direction10" Category="Channel 10" />
+        <Property Name="Direction11" Category="Channel 11" />
+        <Property Name="InputRange01" Category="Vm" />
+        <Property Name="InputRange02" Category="Puff-LED" />
+        <Property Name="InputRange03" Category="Im" />
+        <Property Name="InputRange04" Category="S1 LFP" />
+        <Property Name="InputRange05" Category="M1 LFP" />
+        <Property Name="InputRange06" Category="EEG" />
+        <Property Name="InputRange08" Category="Touch" />
+        <Property Name="InputRange07" Category="EMG" />
+        <Property Name="InputRange09" Category="CamTTL" />
+        <Property Name="InputRange10" Category="Channel 10" />
+        <Property Name="InputRange11" Category="Channel 11" />
+      </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\ONIXAnalog.bonsai">
-        <Direction00>Output</Direction00>
+        <Direction00>Input</Direction00>
         <Direction01>Input</Direction01>
         <Direction02>Input</Direction02>
         <Direction03>Input</Direction03>
@@ -59,17 +126,16 @@
           </HardwareSlot>
           <Address>6</Address>
         </DeviceAddress>
-        <BlockSize>10</BlockSize>
-        <DataType>S16</DataType>
+        <BlockSize>1000</BlockSize>
+        <DataType>Volts</DataType>
         <EnableStream>true</EnableStream>
-        <Frequency>400</Frequency>
-        <BufferLength>120</BufferLength>
-        <Waveform>Square</Waveform>
-        <Amplitude>1</Amplitude>
         <ONIXPortOE>9003</ONIXPortOE>
         <ONIXChannelsOE xsi:nil="true" />
         <dataBaseName>Analog_data_.bin</dataBaseName>
-        <timestampsBaseName>Analog_timestamps_.csv</timestampsBaseName>
+        <timestampsBaseName>Analog_timestamps_.raw</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <DueTime>PT1S</DueTime>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
@@ -167,9 +233,136 @@
           <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
         </Builder>
       </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>ONIXDigital</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timer">
+                <rx:DueTime>PT0.5S</rx:DueTime>
+                <rx:Period>PT0S</rx:Period>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timer">
+                <rx:DueTime>PT0S</rx:DueTime>
+                <rx:Period>PT1S</rx:Period>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>triggerStop</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:TakeUntil" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timer">
+                <rx:DueTime>PT0S</rx:DueTime>
+                <rx:Period>PT0.5S</rx:Period>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timer">
+                <rx:DueTime>PT0S</rx:DueTime>
+                <rx:Period>PT0.5S</rx:Period>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>triggerStop</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:SkipUntil" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>digitalStim</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>digitalStim</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p1:DigitalIODevice">
+                <p1:DeviceAddress>
+                  <p1:HardwareSlot>
+                    <p1:Driver>riffa</p1:Driver>
+                    <p1:Index>0</p1:Index>
+                  </p1:HardwareSlot>
+                  <p1:Address>7</p1:Address>
+                </p1:DeviceAddress>
+                <p1:LEDBrightness>13.333333333333334</p1:LEDBrightness>
+                <p1:EnableStream>true</p1:EnableStream>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Port</Selector>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="4" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="10" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="9" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source2" />
+            <Edge From="9" To="10" Label="Source2" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <DueTime>PT0S</DueTime>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="1" To="2" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -5,7 +5,6 @@
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:p2="clr-namespace:Bonsai.JonsUtils;assembly=Bonsai.JonsUtils"
-                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -39,22 +38,8 @@
         <Property Name="DataType" />
         <Property Name="EnableStream" />
       </Expression>
-      <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Frequency" Category="Stimulation" />
-        <Property Name="BufferLength" Category="Stimulation" />
-        <Property Name="Waveform" Category="Stimulation" />
-        <Property Name="Amplitude" Category="Stimulation" />
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:RealTimeFunctionGenerator">
-          <p1:BufferLength>12</p1:BufferLength>
-          <p1:Frequency>400</p1:Frequency>
-          <p1:Waveform>Square</p1:Waveform>
-          <p1:Depth>S16</p1:Depth>
-          <p1:Amplitude>1</p1:Amplitude>
-          <p1:Offset>0</p1:Offset>
-          <p1:Phase>0</p1:Phase>
-        </Combinator>
+      <Expression xsi:type="WorkflowInput">
+        <Name>Source1</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:AnalogIODevice">
@@ -66,7 +51,7 @@
             <p1:Address>6</p1:Address>
           </p1:DeviceAddress>
           <p1:BlockSize>100</p1:BlockSize>
-          <p1:DataType>S16</p1:DataType>
+          <p1:DataType>Volts</p1:DataType>
           <p1:EnableStream>true</p1:EnableStream>
           <p1:InputRange00>TenVolts</p1:InputRange00>
           <p1:InputRange01>TenVolts</p1:InputRange01>
@@ -97,14 +82,14 @@
       <Expression xsi:type="MemberSelector">
         <Selector>Data</Selector>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:Timestamp" />
-      </Expression>
       <Expression xsi:type="rx:PublishSubject">
-        <Name>timestampedAnalogData</Name>
+        <Name>AnalogData</Name>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Clock</Selector>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>AnalogTS</Name>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>HubSyncCounter</Selector>
@@ -116,10 +101,7 @@
         <Property Name="Channels" DisplayName="ONIXChannelsOE" />
       </Expression>
       <Expression xsi:type="SubscribeSubject">
-        <Name>timestampedAnalogData</Name>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Value</Selector>
+        <Name>AnalogData</Name>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>pathName</Name>
@@ -163,10 +145,7 @@
       </Expression>
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="SubscribeSubject">
-        <Name>timestampedAnalogData</Name>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Timestamp</Selector>
+        <Name>AnalogTS</Name>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>pathName</Name>
@@ -176,7 +155,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>Analog_timestamps_.csv</Value>
+          <Value>Analog_timestamps_.raw</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -188,47 +167,45 @@
       </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
-          <Property Name="FileName" />
+          <Property Name="Path" />
         </PropertyMappings>
       </Expression>
-      <Expression xsi:type="io:CsvWriter">
-        <io:FileName>./data_2024-02-29_09-55-06/webcam_timestamps_.csv</io:FileName>
-        <io:Append>false</io:Append>
-        <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
-        <io:IncludeHeader>false</io:IncludeHeader>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path>./data_2024-02-29_09-55-06/webcam_timestamps_.raw</dsp:Path>
+          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Overwrite>false</dsp:Overwrite>
+          <dsp:Layout>ColumnMajor</dsp:Layout>
+        </Combinator>
       </Expression>
     </Nodes>
     <Edges>
-      <Edge From="0" To="3" Label="Source1" />
-      <Edge From="1" To="2" Label="Source1" />
-      <Edge From="2" To="3" Label="Source2" />
+      <Edge From="0" To="2" Label="Source1" />
+      <Edge From="1" To="2" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="2" To="5" Label="Source1" />
+      <Edge From="2" To="7" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
-      <Edge From="3" To="7" Label="Source1" />
-      <Edge From="3" To="8" Label="Source1" />
-      <Edge From="4" To="5" Label="Source1" />
       <Edge From="5" To="6" Label="Source1" />
-      <Edge From="9" To="21" Label="Source1" />
-      <Edge From="10" To="20" Label="Source1" />
-      <Edge From="11" To="12" Label="Source1" />
-      <Edge From="12" To="19" Label="Source1" />
-      <Edge From="13" To="16" Label="Source1" />
+      <Edge From="8" To="19" Label="Source1" />
+      <Edge From="9" To="18" Label="Source1" />
+      <Edge From="10" To="17" Label="Source1" />
+      <Edge From="11" To="14" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="14" Label="Source2" />
       <Edge From="14" To="15" Label="Source1" />
-      <Edge From="15" To="16" Label="Source2" />
-      <Edge From="16" To="17" Label="Source1" />
-      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="16" To="17" Label="Source2" />
+      <Edge From="17" To="18" Label="Source2" />
+      <Edge From="17" To="20" Label="Source1" />
       <Edge From="18" To="19" Label="Source2" />
-      <Edge From="19" To="20" Label="Source2" />
-      <Edge From="19" To="22" Label="Source1" />
-      <Edge From="20" To="21" Label="Source2" />
+      <Edge From="21" To="28" Label="Source1" />
+      <Edge From="22" To="25" Label="Source1" />
       <Edge From="23" To="24" Label="Source1" />
-      <Edge From="24" To="31" Label="Source1" />
-      <Edge From="25" To="28" Label="Source1" />
+      <Edge From="24" To="25" Label="Source2" />
+      <Edge From="25" To="26" Label="Source1" />
       <Edge From="26" To="27" Label="Source1" />
       <Edge From="27" To="28" Label="Source2" />
-      <Edge From="28" To="29" Label="Source1" />
-      <Edge From="29" To="30" Label="Source1" />
-      <Edge From="30" To="31" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -5,3 +5,4 @@ NuGet
 *.exe.settings
 
 Extensions/*.layout
+minimalExample.bonsai*

@@ -149,8 +149,8 @@
   <DialogSettings>
     <Visible>true</Visible>
     <Location>
-      <X>76</X>
-      <Y>60</Y>
+      <X>1192</X>
+      <Y>804</Y>
     </Location>
     <Size>
       <Width>416</Width>
@@ -161,28 +161,25 @@
     <VisualizerSettings>
       <MatVisualizer>
         <XMin>0</XMin>
-        <XMax>1</XMax>
+        <XMax>5120</XMax>
         <YMin>0</YMin>
-        <YMax>1.1</YMax>
+        <YMax>50000.000000000007</YMax>
         <AutoScaleX>true</AutoScaleX>
         <AutoScaleY>true</AutoScaleY>
         <SelectedPage>0</SelectedPage>
         <ChannelsPerPage>16</ChannelsPerPage>
         <OverlayChannels>false</OverlayChannels>
         <ChannelOffset>0</ChannelOffset>
-        <HistoryLength>10</HistoryLength>
+        <HistoryLength>20</HistoryLength>
         <WaveformBufferLength>1</WaveformBufferLength>
-        <SelectedChannels>
-          <int>9</int>
-        </SelectedChannels>
       </MatVisualizer>
     </VisualizerSettings>
   </DialogSettings>
   <DialogSettings>
     <Visible>true</Visible>
     <Location>
-      <X>286</X>
-      <Y>286</Y>
+      <X>1855</X>
+      <Y>832</Y>
     </Location>
     <Size>
       <Width>336</Width>
@@ -193,18 +190,6 @@
     <VisualizerSettings>
       <IplImageVisualizer />
     </VisualizerSettings>
-  </DialogSettings>
-  <DialogSettings>
-    <Visible>false</Visible>
-    <Location>
-      <X>0</X>
-      <Y>0</Y>
-    </Location>
-    <Size>
-      <Width>0</Width>
-      <Height>0</Height>
-    </Size>
-    <WindowState>Normal</WindowState>
   </DialogSettings>
   <DialogSettings>
     <Visible>false</Visible>

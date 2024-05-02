@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:p1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>../../Documents/data/Expe</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>folderBaseName</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>B</wie:Filter>
+          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Equal">
+        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
+          <Value>Space</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>triggerRec</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>F</wie:Filter>
+          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Equal">
+        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
+          <Value>F</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>triggerStop</Name>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="trialDuration" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="TimeSpanProperty">
+          <Value>PT0S</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>trialDuration</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="C:\Users\AudreyHay\Desktop\Bonsai\Extensions\generateTimestampedFolder.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="C:\Users\AudreyHay\Desktop\Bonsai\Extensions\OEBoard.bonsai">
+        <BoardPortOE>9001</BoardPortOE>
+        <BoardChannelsOE xsi:nil="true" />
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <timestampsBaseName>OE_32ch_timestamps_.csv</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="C:\Users\AudreyHay\Desktop\Bonsai\Extensions\Webcam.bonsai">
+        <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
+        <Index>0</Index>
+        <CaptureProperties />
+        <videoBaseName>webcam_video_.avi</videoBaseName>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImaging.bonsai">
+          <videoBaseName>miniscope_.avi</videoBaseName>
+          <Gain>High</Gain>
+          <LEDBrightness>100</LEDBrightness>
+          <LiquidLensVoltage>24.4</LiquidLensVoltage>
+          <FrameRate>FPS30Hz</FrameRate>
+          <InterleaveLED>true</InterleaveLED>
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>8</Address>
+          </DeviceAddress>
+          <EnableStream>true</EnableStream>
+          <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\CommutatorMiniscope.bonsai">
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>8</Address>
+          </DeviceAddress>
+          <fileBaseName>heading_.csv</fileBaseName>
+          <PortName>COM4</PortName>
+          <tsBaseName>headingTS_.csv</tsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
+          <DeviceAddress>
+            <HardwareSlot>
+              <Driver>riffa</Driver>
+              <Index>0</Index>
+            </HardwareSlot>
+            <Address>9</Address>
+          </DeviceAddress>
+          <BlockSize>30</BlockSize>
+          <EnableStream>true</EnableStream>
+          <RequireSNMatch>false</RequireSNMatch>
+          <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>
+          <LFPClockBaseName>NP_LFPtimestamps_.raw</LFPClockBaseName>
+          <LFPDataBaseName>NP_LFPdata_.raw</LFPDataBaseName>
+          <clockBaseName>NP_timestamps_.raw</clockBaseName>
+          <NPXPortOE>9002</NPXPortOE>
+          <NPXChannelsOE>
+            <int>1</int>
+            <int>2</int>
+            <int>3</int>
+            <int>5</int>
+            <int>6</int>
+            <int>7</int>
+            <int>9</int>
+            <int>10</int>
+            <int>11</int>
+            <int>13</int>
+            <int>14</int>
+            <int>15</int>
+          </NPXChannelsOE>
+          <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
+        </Builder>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

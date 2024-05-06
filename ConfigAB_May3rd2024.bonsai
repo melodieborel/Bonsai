@@ -10,7 +10,7 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>C:\Users\AudreyHay\Documents\data\</Value>
+          <Value>C:/Users/AudreyHay/Documents/data/Bonsai_data/Expe</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">

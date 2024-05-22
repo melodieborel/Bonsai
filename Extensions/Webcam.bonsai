@@ -80,6 +80,9 @@
           <Property Name="FileName" />
         </PropertyMappings>
       </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="FourCC" />
+      </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:VideoWriter">
           <cv:FileName>./data_2024-02-29_09-55-06/webcam_video_.avi</cv:FileName>
@@ -109,13 +112,14 @@
       <Edge From="8" To="11" Label="Source1" />
       <Edge From="9" To="10" Label="Source2" />
       <Edge From="11" To="12" Label="Source1" />
-      <Edge From="11" To="19" Label="Source1" />
+      <Edge From="11" To="20" Label="Source1" />
       <Edge From="13" To="16" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
       <Edge From="15" To="16" Label="Source2" />
       <Edge From="16" To="17" Label="Source1" />
       <Edge From="17" To="18" Label="Source1" />
-      <Edge From="18" To="19" Label="Source2" />
+      <Edge From="18" To="20" Label="Source2" />
+      <Edge From="19" To="20" Label="Source3" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -52,27 +52,41 @@
       <Expression xsi:type="rx:PublishSubject">
         <Name>trialDuration</Name>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <BoardPortOE>9001</BoardPortOE>
-        <BoardChannelsOE xsi:nil="true" />
-        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <BoardPortOE>9001</BoardPortOE>
+          <BoardChannelsOE xsi:nil="true" />
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
         <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
-        <Index>1</Index>
-        <CaptureProperties />
-        <videoBaseName>webcam_video_.avi</videoBaseName>
-      </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX.bonsai">
-        <videoBaseName>miniscope_.avi</videoBaseName>
-        <LedBrightness>8.13953488372093</LedBrightness>
-        <Focus>48.83720930232559</Focus>
-        <SensorGain>Medium</SensorGain>
-        <FramesPerSecond>Fps20</FramesPerSecond>
-        <LedRespectsTrigger>false</LedRespectsTrigger>
         <Index>0</Index>
-        <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
+        <CaptureProperties>
+          <CapturePropertyAssignment>
+            <Property>FrameWidth</Property>
+            <Value>1920</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>FrameHeight</Property>
+            <Value>1080</Value>
+          </CapturePropertyAssignment>
+        </CaptureProperties>
+        <videoBaseName>webcam_video_.avi</videoBaseName>
+        <FourCC>FMP4</FourCC>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX.bonsai">
+          <videoBaseName>miniscope_.avi</videoBaseName>
+          <LedBrightness>8.13953488372093</LedBrightness>
+          <Focus>48.83720930232559</Focus>
+          <SensorGain>Medium</SensorGain>
+          <FramesPerSecond>Fps20</FramesPerSecond>
+          <LedRespectsTrigger>false</LedRespectsTrigger>
+          <Index>0</Index>
+          <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">

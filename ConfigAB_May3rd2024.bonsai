@@ -11,11 +11,13 @@
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>pathName</Name>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <BoardPortOE>9001</BoardPortOE>
-        <BoardChannelsOE xsi:nil="true" />
-        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <BoardPortOE>9001</BoardPortOE>
+          <BoardChannelsOE xsi:nil="true" />
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
         <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
@@ -48,28 +50,28 @@
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
           <delayEnd>PT0S</delayEnd>
-          <trialDuration>PT10M</trialDuration>
+          <trialDuration>PT10S</trialDuration>
           <triggerStop>F</triggerStop>
           <triggerRec>B</triggerRec>
         </Builder>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
-          <nChannelsPerAnimal>16</nChannelsPerAnimal>
-          <BoardChannelsOEForDisplay xsi:nil="true" />
-          <BoardPortOE>9001</BoardPortOE>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
+        <nChannelsPerAnimal>32</nChannelsPerAnimal>
+        <BoardChannelsOEForDisplay xsi:nil="true" />
+        <BoardPortOE>9001</BoardPortOE>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item1</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>W</triggerStop>
+        <triggerRec>O</triggerRec>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="MemberSelector">
@@ -78,13 +80,16 @@
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
           <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
         </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-          <DueTime>PT0S</DueTime>
+          <delayEnd>PT0S</delayEnd>
+          <trialDuration>PT10S</trialDuration>
+          <triggerStop>R</triggerStop>
+          <triggerRec>N</triggerRec>
         </Builder>
       </Expression>
     </Nodes>
@@ -92,10 +97,11 @@
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
-      <Edge From="6" To="9" Label="Source1" />
+      <Edge From="6" To="10" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
       <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

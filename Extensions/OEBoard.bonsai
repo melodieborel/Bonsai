@@ -17,7 +17,7 @@
           <p1:SampleRate>SampleRate1000Hz</p1:SampleRate>
           <p1:ExternalFastSettleEnabled>false</p1:ExternalFastSettleEnabled>
           <p1:LowerBandwidth>0.1</p1:LowerBandwidth>
-          <p1:UpperBandwidth>2000</p1:UpperBandwidth>
+          <p1:UpperBandwidth>7000</p1:UpperBandwidth>
           <p1:DspCutoffFrequency>1</p1:DspCutoffFrequency>
           <p1:DspEnabled>true</p1:DspEnabled>
           <p1:CableDelayA xsi:nil="true" />

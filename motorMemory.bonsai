@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.1"
+<WorkflowBuilder Version="2.8.2"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
@@ -18,7 +18,12 @@
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>folderBaseName</Name>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai">
+        <folderBaseName xsi:nil="true" />
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>pathName</Name>
+      </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Workflow>
           <Nodes>
@@ -121,7 +126,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="pylon:PylonCapture">
-                <pylon:SerialNumber>21582249</pylon:SerialNumber>
+                <pylon:SerialNumber>21641991</pylon:SerialNumber>
                 <pylon:GrabStrategy>OneByOne</pylon:GrabStrategy>
               </Combinator>
             </Expression>
@@ -138,7 +143,12 @@
               <io:Suffix>Timestamp</io:Suffix>
               <io:IncludeHeader>false</io:IncludeHeader>
             </Expression>
-            <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai" />
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+              <delayEnd>PT0S</delayEnd>
+              <trialDuration>PT10S</trialDuration>
+              <triggerStop>F</triggerStop>
+              <triggerRec>B</triggerRec>
+            </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Value</Selector>
             </Expression>
@@ -184,7 +194,12 @@
                 <cv:ResizeInterpolation>NearestNeighbor</cv:ResizeInterpolation>
               </Combinator>
             </Expression>
-            <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai" />
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+              <delayEnd>PT0S</delayEnd>
+              <trialDuration>PT10S</trialDuration>
+              <triggerStop>F</triggerStop>
+              <triggerRec>B</triggerRec>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
@@ -226,6 +241,7 @@
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

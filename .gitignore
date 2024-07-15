@@ -3,6 +3,8 @@ VisualStudio
 NuGet
 *.exe
 *.exe.settings
+*.exe.*
+
 
 Extensions/*.layout
 minimalExample.bonsai*

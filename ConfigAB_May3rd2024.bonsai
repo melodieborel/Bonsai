@@ -38,8 +38,8 @@
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX.bonsai">
           <videoBaseName>miniscope_.avi</videoBaseName>
-          <LedBrightness>8.13953488372093</LedBrightness>
-          <Focus>48.83720930232559</Focus>
+          <LedBrightness>9.30232558139535</LedBrightness>
+          <Focus>-4.6511627906976685</Focus>
           <SensorGain>Medium</SensorGain>
           <FramesPerSecond>Fps20</FramesPerSecond>
           <LedRespectsTrigger>false</LedRespectsTrigger>
@@ -55,23 +55,31 @@
           <triggerRec>B</triggerRec>
         </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
-        <nChannelsPerAnimal>32</nChannelsPerAnimal>
-        <BoardChannelsOEForDisplay xsi:nil="true" />
-        <BoardPortOE>9001</BoardPortOE>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
+          <nChannelsPerAnimal>32</nChannelsPerAnimal>
+          <BoardChannelsOEForDisplay xsi:nil="true" />
+          <BoardPortOE>9001</BoardPortOE>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Item1</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Item1</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
-        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-        <delayEnd>PT0S</delayEnd>
-        <trialDuration>PT10S</trialDuration>
-        <triggerStop>W</triggerStop>
-        <triggerRec>O</triggerRec>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+          <delayEnd>PT0S</delayEnd>
+          <trialDuration>PT10S</trialDuration>
+          <triggerStop>W</triggerStop>
+          <triggerRec>O</triggerRec>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="MemberSelector">

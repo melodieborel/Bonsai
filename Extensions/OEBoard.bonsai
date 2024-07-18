@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.1"
+<WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:Bonsai.OpenEphys;assembly=Bonsai.OpenEphys"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
@@ -42,6 +42,9 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
+        <Selector>BufferCapacity</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
         <Selector>AmplifierData</Selector>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -49,9 +52,6 @@
       </Expression>
       <Expression xsi:type="rx:PublishSubject">
         <Name>timestampedData</Name>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>BufferCapacity</Selector>
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="port" DisplayName="BoardPortOE" />
@@ -99,11 +99,13 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:SelectChannels" />
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p2:OpenCVMatUDPClient">
-          <p2:addr>localhost</p2:addr>
-          <p2:port>9001</p2:port>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p2:OpenCVMatUDPClient">
+            <p2:addr>localhost</p2:addr>
+            <p2:port>9001</p2:port>
+          </Combinator>
+        </Builder>
       </Expression>
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="SubscribeSubject">
@@ -146,9 +148,9 @@
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
-      <Edge From="1" To="5" Label="Source1" />
-      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="1" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
       <Edge From="6" To="18" Label="Source1" />
       <Edge From="7" To="17" Label="Source1" />
       <Edge From="8" To="9" Label="Source1" />

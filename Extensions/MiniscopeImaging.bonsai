@@ -50,10 +50,10 @@
             <p1:Address>8</p1:Address>
           </p1:DeviceAddress>
           <p1:EnableStream>true</p1:EnableStream>
-          <p1:LEDBrightness>11.764705882352942</p1:LEDBrightness>
-          <p1:FrameRate>FPS30Hz</p1:FrameRate>
-          <p1:Gain>High</p1:Gain>
-          <p1:LiquidLensVoltage>37.928</p1:LiquidLensVoltage>
+          <p1:LEDBrightness>0</p1:LEDBrightness>
+          <p1:FrameRate>FPS20Hz</p1:FrameRate>
+          <p1:Gain>Medium</p1:Gain>
+          <p1:LiquidLensVoltage>46.471999999999994</p1:LiquidLensVoltage>
           <p1:InterleaveLED>false</p1:InterleaveLED>
         </Combinator>
       </Expression>

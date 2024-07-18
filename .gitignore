@@ -6,3 +6,5 @@ NuGet
 
 Extensions/*.layout
 minimalExample.bonsai*
+Bonsai.exe.WebView2
+tests in vivo

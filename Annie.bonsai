@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
                  xmlns:p1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:onix="clr-namespace:OpenEphys.Onix;assembly=OpenEphys.Onix"
                  xmlns:p2="clr-namespace:Bonsai.OpenEphys;assembly=Bonsai.OpenEphys"
                  xmlns:p3="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
@@ -12,14 +12,6 @@
   <Workflow>
     <Nodes>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>../../../Documents/data/Expe</Value>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="rx:BehaviorSubject">
-        <Name>folderBaseName</Name>
-      </Expression>
-      <Expression xsi:type="Combinator">
         <Combinator xsi:type="wie:KeyDown">
           <wie:Filter>B</wie:Filter>
           <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
@@ -27,7 +19,7 @@
       </Expression>
       <Expression xsi:type="Equal">
         <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
-          <Value>Space</Value>
+          <Value>B</Value>
         </Operand>
       </Expression>
       <Expression xsi:type="rx:PublishSubject">
@@ -58,79 +50,98 @@
       <Expression xsi:type="rx:PublishSubject">
         <Name>trialDuration</Name>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai" />
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix:CreateContext">
-          <onix:Driver>riffa</onix:Driver>
-          <onix:Index>0</onix:Index>
-        </Combinator>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai">
+        <folderBaseName>../../../Documents/data/Expe</folderBaseName>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix:ConfigureMemoryMonitor">
-          <onix:DeviceName>MemUse</onix:DeviceName>
-          <onix:DeviceAddress>10</onix:DeviceAddress>
-          <onix:Enable>true</onix:Enable>
-          <onix:SampleFrequency>100</onix:SampleFrequency>
-        </Combinator>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>pathName</Name>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix:ConfigureNeuropixelsV1eHeadstage">
-          <onix:Name>NeuropixelsV1eHeadstage</onix:Name>
-          <onix:NeuropixelsV1>
-            <onix:DeviceName>NeuropixelsV1eHeadstage.NeuropixelsV1e</onix:DeviceName>
-            <onix:DeviceAddress>256</onix:DeviceAddress>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="onix:CreateContext">
+            <onix:Driver>riffa</onix:Driver>
+            <onix:Index>0</onix:Index>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="onix:ConfigureMemoryMonitor">
+            <onix:DeviceName>MemUse</onix:DeviceName>
+            <onix:DeviceAddress>10</onix:DeviceAddress>
             <onix:Enable>true</onix:Enable>
-            <onix:EnableLed>true</onix:EnableLed>
-            <onix:SpikeAmplifierGain>Gain1000</onix:SpikeAmplifierGain>
-            <onix:LfpAmplifierGain>Gain50</onix:LfpAmplifierGain>
-            <onix:Reference>External</onix:Reference>
-            <onix:SpikeFilter>true</onix:SpikeFilter>
-            <onix:GainCalibrationFile>C:\Users\Manip1\Documents\NPX\SO3183\22175718612\22175718612_gainCalValues.csv</onix:GainCalibrationFile>
-            <onix:AdcCalibrationFile>C:\Users\Manip1\Documents\NPX\SO3183\22175718612\22175718612_ADCCalibration.csv</onix:AdcCalibrationFile>
-          </onix:NeuropixelsV1>
-          <onix:Bno055>
-            <onix:DeviceName>NeuropixelsV1eHeadstage.Bno055</onix:DeviceName>
-            <onix:DeviceAddress>257</onix:DeviceAddress>
-            <onix:Enable>true</onix:Enable>
-          </onix:Bno055>
-          <onix:Port>PortA</onix:Port>
-          <onix:PortVoltage>5</onix:PortVoltage>
-        </Combinator>
+            <onix:SampleFrequency>100</onix:SampleFrequency>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix:StartAcquisition">
-          <onix:ReadSize>4048</onix:ReadSize>
-          <onix:WriteSize>4048</onix:WriteSize>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="onix:ConfigureNeuropixelsV1eHeadstage">
+            <onix:Name>NeuropixelsV1eHeadstage</onix:Name>
+            <onix:NeuropixelsV1>
+              <onix:DeviceName>NeuropixelsV1eHeadstage.NeuropixelsV1e</onix:DeviceName>
+              <onix:DeviceAddress>256</onix:DeviceAddress>
+              <onix:Enable>true</onix:Enable>
+              <onix:EnableLed>true</onix:EnableLed>
+              <onix:SpikeAmplifierGain>Gain1000</onix:SpikeAmplifierGain>
+              <onix:LfpAmplifierGain>Gain50</onix:LfpAmplifierGain>
+              <onix:Reference>External</onix:Reference>
+              <onix:SpikeFilter>true</onix:SpikeFilter>
+              <onix:GainCalibrationFile>C:\Users\Manip1\Documents\NPX\SO3183\22175718612\22175718612_gainCalValues.csv</onix:GainCalibrationFile>
+              <onix:AdcCalibrationFile>C:\Users\Manip1\Documents\NPX\SO3183\22175718612\22175718612_ADCCalibration.csv</onix:AdcCalibrationFile>
+            </onix:NeuropixelsV1>
+            <onix:Bno055>
+              <onix:DeviceName>NeuropixelsV1eHeadstage.Bno055</onix:DeviceName>
+              <onix:DeviceAddress>257</onix:DeviceAddress>
+              <onix:Enable>true</onix:Enable>
+            </onix:Bno055>
+            <onix:Port>PortA</onix:Port>
+            <onix:PortVoltage>5</onix:PortVoltage>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix:MemoryUsage">
-          <onix:DeviceName>MemUse</onix:DeviceName>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="onix:StartAcquisition">
+            <onix:ReadSize>4048</onix:ReadSize>
+            <onix:WriteSize>4048</onix:WriteSize>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>PercentUsed</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="onix:MemoryUsage">
+            <onix:DeviceName>MemUse</onix:DeviceName>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
-        <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>
-        <LFPDataBaseName>NP_LFPdata_.raw</LFPDataBaseName>
-        <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
-        <NPXChannelsOE>
-          <int>1</int>
-          <int>2</int>
-          <int>3</int>
-          <int>5</int>
-          <int>6</int>
-          <int>7</int>
-          <int>9</int>
-          <int>10</int>
-          <int>11</int>
-          <int>13</int>
-          <int>14</int>
-          <int>15</int>
-        </NPXChannelsOE>
-        <NPXPortOE>9002</NPXPortOE>
-        <clockBaseName>NP_timestamps_.raw</clockBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>PercentUsed</Selector>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\Neuropixel.bonsai">
+          <frameCounterBaseName>NP_FrameCounter_.raw</frameCounterBaseName>
+          <LFPDataBaseName>NP_LFPdata_.raw</LFPDataBaseName>
+          <spikeDataBaseName>NP_spikes_.raw</spikeDataBaseName>
+          <NPXChannelsOE>
+            <int>1</int>
+            <int>2</int>
+            <int>3</int>
+            <int>5</int>
+            <int>6</int>
+            <int>7</int>
+            <int>9</int>
+            <int>10</int>
+            <int>11</int>
+            <int>13</int>
+            <int>14</int>
+            <int>15</int>
+          </NPXChannelsOE>
+          <NPXPortOE>9002</NPXPortOE>
+          <clockBaseName>NP_timestamps_.raw</clockBaseName>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="ExternalizedMapping">
@@ -207,24 +218,26 @@
           <DueTime>PT1S</DueTime>
         </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <BoardLeds>true</BoardLeds>
-        <BufferCount>1024</BufferCount>
-        <SampleRate>SampleRate20000Hz</SampleRate>
-        <BoardIndex>-1</BoardIndex>
-        <ExternalFastSettleEnabled>false</ExternalFastSettleEnabled>
-        <LowerBandwidth>0.1</LowerBandwidth>
-        <UpperBandwidth>7500</UpperBandwidth>
-        <DspCutoffFrequency>1</DspCutoffFrequency>
-        <DspEnabled>true</DspEnabled>
-        <CableDelayA xsi:nil="true" />
-        <CableDelayB xsi:nil="true" />
-        <CableDelayC xsi:nil="true" />
-        <CableDelayD xsi:nil="true" />
-        <BoardPortOE>9001</BoardPortOE>
-        <BoardChannelsOE xsi:nil="true" />
-        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-        <timestampsBaseName>OE_32ch_timestamps_.csv</timestampsBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <BoardLeds>true</BoardLeds>
+          <BufferCount>1024</BufferCount>
+          <SampleRate>SampleRate20000Hz</SampleRate>
+          <BoardIndex>-1</BoardIndex>
+          <ExternalFastSettleEnabled>false</ExternalFastSettleEnabled>
+          <LowerBandwidth>0.1</LowerBandwidth>
+          <UpperBandwidth>7500</UpperBandwidth>
+          <DspCutoffFrequency>1</DspCutoffFrequency>
+          <DspEnabled>true</DspEnabled>
+          <CableDelayA xsi:nil="true" />
+          <CableDelayB xsi:nil="true" />
+          <CableDelayC xsi:nil="true" />
+          <CableDelayD xsi:nil="true" />
+          <BoardPortOE>9001</BoardPortOE>
+          <BoardChannelsOE xsi:nil="true" />
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_32ch_timestamps_.csv</timestampsBaseName>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="Combinator">
@@ -425,23 +438,63 @@
           <DueTime>PT0S</DueTime>
         </Builder>
       </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
+        <nChannelsPerAnimal>32</nChannelsPerAnimal>
+        <BoardChannelsOEForDisplay xsi:nil="true" />
+        <BoardPortOE>9001</BoardPortOE>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>F</triggerStop>
+        <triggerRec>B</triggerRec>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Item2</Selector>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+          <DueTime>PT0S</DueTime>
+        </Builder>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
-      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
-      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
       <Edge From="9" To="10" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="13" To="14" Label="Source1" />
-      <Edge From="14" To="15" Label="Source1" />
-      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
       <Edge From="19" To="20" Label="Source1" />
-      <Edge From="20" To="21" Label="Source1" />
-      <Edge From="23" To="24" Label="Source1" />
-      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="22" To="23" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="29" To="30" Label="Source1" />
+      <Edge From="29" To="33" Label="Source1" />
+      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="31" To="32" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="34" To="35" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

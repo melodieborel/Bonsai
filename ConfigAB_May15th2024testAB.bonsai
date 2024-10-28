@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.1"
+<WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
@@ -8,105 +8,137 @@
   <Workflow>
     <Nodes>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai">
-        <folderBaseName>C:/Users/AudreyHay/Documents/data/Bonsai_data/Expe</folderBaseName>
+        <folderBaseName>C:/Users/manip/Documents/data/Bonsai_data/Expe</folderBaseName>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>pathName</Name>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="wie:KeyDown">
-          <wie:Filter>B</wie:Filter>
-          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="wie:KeyDown">
+            <wie:Filter>B</wie:Filter>
+            <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Equal">
-        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
-          <Value>Space</Value>
-        </Operand>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Equal">
+          <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
+            <Value>Space</Value>
+          </Operand>
+        </Builder>
       </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>triggerRec</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="rx:PublishSubject">
+          <Name>triggerRec</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="wie:KeyDown">
-          <wie:Filter>F</wie:Filter>
-          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="wie:KeyDown">
+            <wie:Filter>F</wie:Filter>
+            <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Equal">
-        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
-          <Value>F</Value>
-        </Operand>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Equal">
+          <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
+            <Value>F</Value>
+          </Operand>
+        </Builder>
       </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>triggerStop</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="rx:PublishSubject">
+          <Name>triggerStop</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Value" DisplayName="trialDuration" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="ExternalizedMapping">
+          <Property Name="Value" DisplayName="trialDuration" />
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="TimeSpanProperty">
-          <Value>PT0S</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="TimeSpanProperty">
+            <Value>PT0S</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>trialDuration</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="rx:PublishSubject">
+          <Name>trialDuration</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
-        <BoardPortOE>9001</BoardPortOE>
-        <BoardChannelsOE xsi:nil="true" />
-        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoard.bonsai">
+          <BoardPortOE>9001</BoardPortOE>
+          <BoardChannelsOE xsi:nil="true" />
+          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
+        </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
-        <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
-        <Index>1</Index>
-        <CaptureProperties />
-        <videoBaseName>webcam_video_.avi</videoBaseName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\Webcam.bonsai">
+          <timestampsBaseName>webcam_timestamps_.csv</timestampsBaseName>
+          <Index>1</Index>
+          <CaptureProperties />
+          <videoBaseName>webcam_video_.avi</videoBaseName>
+          <FourCC>FMP4</FourCC>
+        </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX.bonsai">
         <videoBaseName>miniscope_.avi</videoBaseName>
-        <LedBrightness>8.13953488372093</LedBrightness>
-        <Focus>48.83720930232559</Focus>
-        <SensorGain>Medium</SensorGain>
-        <FramesPerSecond>Fps20</FramesPerSecond>
+        <LedBrightness>0</LedBrightness>
+        <Focus>-100</Focus>
+        <SensorGain>High</SensorGain>
+        <FramesPerSecond>Fps30</FramesPerSecond>
         <LedRespectsTrigger>false</LedRespectsTrigger>
         <Index>0</Index>
         <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
-          <nChannelsPerAnimal>16</nChannelsPerAnimal>
-          <BoardChannelsOEForDisplay xsi:nil="true" />
-          <BoardPortOE>9001</BoardPortOE>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT15M</trialDuration>
+        <triggerStop>F10</triggerStop>
+        <triggerRec>F9</triggerRec>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item1</Selector>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
+        <nChannelsPerAnimal>32</nChannelsPerAnimal>
+        <BoardChannelsOEForDisplay xsi:nil="true" />
+        <BoardPortOE>9001</BoardPortOE>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item2</Selector>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <timestampsBaseName>OE_timestamps_1_.csv</timestampsBaseName>
+        <OEdataBasename>OE_32ch_data_1_.bin</OEdataBasename>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>F5</triggerStop>
+        <triggerRec>F1</triggerRec>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-          <DueTime>PT0S</DueTime>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <timestampsBaseName>OE_timestamps_2_.csv</timestampsBaseName>
+        <OEdataBasename>OE_32ch_data_2_.bin</OEdataBasename>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>F6</triggerStop>
+        <triggerRec>F2</triggerRec>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
       </Expression>
     </Nodes>
     <Edges>
@@ -117,11 +149,15 @@
       <Edge From="6" To="7" Label="Source1" />
       <Edge From="8" To="9" Label="Source1" />
       <Edge From="9" To="10" Label="Source1" />
-      <Edge From="14" To="15" Label="Source1" />
-      <Edge From="14" To="17" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
       <Edge From="15" To="16" Label="Source1" />
+      <Edge From="15" To="20" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="16" To="19" Label="Source1" />
       <Edge From="17" To="18" Label="Source1" />
-      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="20" To="23" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

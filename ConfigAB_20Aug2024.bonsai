@@ -107,26 +107,27 @@
         </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX_noAutoSave.bonsai">
+        <LedONvalue>11.627906976744185</LedONvalue>
+        <LedOFFvalue>0</LedOFFvalue>
+        <Index>0</Index>
         <Focus>41.860465116279073</Focus>
-        <SensorGain>Low</SensorGain>
+        <SensorGain>High</SensorGain>
         <FramesPerSecond>Fps30</FramesPerSecond>
         <LedRespectsTrigger>false</LedRespectsTrigger>
-        <LedBrightness>0</LedBrightness>
-        <Index>0</Index>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData_forMiniscope.bonsai">
         <animalID>Lou</animalID>
         <videoBaseName>miniscope_.avi</videoBaseName>
-        <VideoDuration>PT10M</VideoDuration>
-        <VideoAndBreakDuration>PT10M5S</VideoAndBreakDuration>
-        <BreakDuration>PT10M</BreakDuration>
+        <VideoDuration>PT10S</VideoDuration>
+        <VideoAndBreakDuration>PT0S</VideoAndBreakDuration>
+        <BreakDuration>PT5S</BreakDuration>
         <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
         <delayEnd>PT0S</delayEnd>
-        <trialDuration>PT10M</trialDuration>
+        <trialDuration>PT1M</trialDuration>
         <triggerStop>F</triggerStop>
-        <triggerRec>F9</triggerRec>
+        <triggerRec>Space</triggerRec>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>ImageData</Selector>
@@ -174,33 +175,29 @@
           <Selector>ImageData</Selector>
         </Builder>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\SleepCagesWebcam_noAutoSave.bonsai">
-          <Index>1</Index>
-          <CaptureProperties>
-            <CapturePropertyAssignment>
-              <Property>Brightness</Property>
-              <Value>128</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Exposure</Property>
-              <Value>-6</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Focus</Property>
-              <Value>0</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Zoom</Property>
-              <Value>0</Value>
-            </CapturePropertyAssignment>
-          </CaptureProperties>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\SleepCagesWebcam_noAutoSave.bonsai">
+        <Index>1</Index>
+        <CaptureProperties>
+          <CapturePropertyAssignment>
+            <Property>Brightness</Property>
+            <Value>128</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>Exposure</Property>
+            <Value>-6</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>Focus</Property>
+            <Value>0</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>Zoom</Property>
+            <Value>0</Value>
+          </CapturePropertyAssignment>
+        </CaptureProperties>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>ImageData</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>ImageData</Selector>
       </Expression>
     </Nodes>
     <Edges>

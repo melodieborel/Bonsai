@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:OpenEphys.Bonsai.Miniscope;assembly=OpenEphys.Bonsai.Miniscope"
+                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:p2="clr-namespace:Bonsai.Miniscope;assembly=Bonsai.Miniscope"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:ipy="clr-namespace:Bonsai.Scripting.IronPython;assembly=Bonsai.Scripting.IronPython"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="LedONvalue" />
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>isOn</Name>
+      </Expression>
+      <Expression xsi:type="PropertySource" TypeArguments="p1:UclaMiniscopeV4,sys:Double">
+        <MemberName>LedBrightness</MemberName>
+        <Value>10</Value>
+      </Expression>
+      <Expression xsi:type="rx:Condition">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>isOn</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DoubleProperty">
+          <Value>0</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:Condition">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>isOn</Name>
+            </Expression>
+            <Expression xsi:type="BitwiseNot" />
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Merge" />
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Value" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DoubleProperty">
+          <Value>0</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:Condition">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RecOn</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="PropertySource" TypeArguments="p1:UclaMiniscopeV4,sys:Double">
+        <MemberName>LedBrightness</MemberName>
+        <Value>30</Value>
+      </Expression>
+      <Expression xsi:type="rx:Condition">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RecOn</Name>
+            </Expression>
+            <Expression xsi:type="BitwiseNot" />
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Merge" />
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="LEDBrightness" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="FramesPerSecond" />
+        <Property Name="Index" />
+        <Property Name="EWL" />
+        <Property Name="SensorGain" />
+        <Property Name="LEDRespectsTrigger" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:UCLAMiniscopeV4">
+          <p2:Index>0</p2:Index>
+          <p2:LEDBrightness>0</p2:LEDBrightness>
+          <p2:EWL>0</p2:EWL>
+          <p2:SensorGain>HIGH</p2:SensorGain>
+          <p2:FramesPerSecond>FPS30</p2:FramesPerSecond>
+          <p2:LEDRespectsTrigger>false</p2:LEDRespectsTrigger>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Image</Selector>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timestamp" />
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>timestampsDataMini</Name>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>Quaternion</Selector>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="GroupWorkflow">
+          <Name>Commutator</Name>
+          <Description>Drives ONIX Commutator from BNO055 Quaterion data. Pressing down/up keys will manually turn the commutator, overrding the BNO055 heading input.
+</Description>
+          <Workflow>
+            <Nodes>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="wie:KeyDown">
+                  <wie:Filter>Left</wie:Filter>
+                  <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="StringProperty">
+                  <Value>"{turn : 0.1}"</Value>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="wie:KeyDown">
+                  <wie:Filter>Right</wie:Filter>
+                  <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="StringProperty">
+                  <Value>"{turn : -0.1}"</Value>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="WorkflowInput">
+                  <Name>Source1</Name>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="ipy:PythonTransform">
+                  <ipy:Name>Heading</ipy:Name>
+                  <ipy:Script>import clr
+clr.AddReference("OpenCV.Net")
+from OpenCV.Net import *
+from math import atan2
+@returns(float)
+def process(value):
+
+  q0 = value[0].Val0;
+  q1 = value[1].Val0;
+  q2 = value[2].Val0;
+  q3 = value[3].Val0;
+
+  return atan2((2 * (q0 * q3 + q1 * q2)), (1 - 2 * (q2**2 + q3**2)))</ipy:Script>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="io:CsvWriter">
+                  <io:FileName>heading_.csv</io:FileName>
+                  <io:Append>false</io:Append>
+                  <io:Overwrite>false</io:Overwrite>
+                  <io:Suffix>Timestamp</io:Suffix>
+                  <io:IncludeHeader>false</io:IncludeHeader>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="Combinator">
+                  <Combinator xsi:type="rx:Timer">
+                    <rx:DueTime>PT0S</rx:DueTime>
+                    <rx:Period>PT0.1S</rx:Period>
+                  </Combinator>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="Combinator">
+                  <Combinator xsi:type="rx:Sample" />
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="Combinator">
+                  <Combinator xsi:type="rx:Skip">
+                    <rx:Count>1</rx:Count>
+                  </Combinator>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="Combinator">
+                  <Combinator xsi:type="rx:Zip" />
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="ipy:PythonTransform">
+                  <ipy:Script>from math import pi
+
+@returns(str)
+def process(value):
+  
+  
+  last = value.Item2
+
+  curr = value.Item1
+  a1 = curr + 2 * pi
+  a2 = curr - 2 * pi
+  pos = [curr, a1, a2]
+
+  delta = [abs(x - last) for x in pos]
+
+  p = pos[delta.index(min(delta))]
+
+  turn = (p - last) / (2 * pi)
+
+  return "{turn : %s}" % turn</ipy:Script>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Merge" />
+              </Expression>
+              <Expression xsi:type="ExternalizedMapping">
+                <Property Name="PortName" />
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="io:SerialStringWrite">
+                  <io:PortName>COM3</io:PortName>
+                  <io:NewLine>\r\n</io:NewLine>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="WorkflowOutput" />
+            </Nodes>
+            <Edges>
+              <Edge From="0" To="1" Label="Source1" />
+              <Edge From="1" To="12" Label="Source1" />
+              <Edge From="2" To="3" Label="Source1" />
+              <Edge From="3" To="12" Label="Source2" />
+              <Edge From="4" To="5" Label="Source1" />
+              <Edge From="5" To="6" Label="Source1" />
+              <Edge From="6" To="8" Label="Source1" />
+              <Edge From="7" To="8" Label="Source2" />
+              <Edge From="8" To="9" Label="Source1" />
+              <Edge From="8" To="10" Label="Source1" />
+              <Edge From="9" To="10" Label="Source2" />
+              <Edge From="10" To="11" Label="Source1" />
+              <Edge From="11" To="12" Label="Source3" />
+              <Edge From="12" To="14" Label="Source1" />
+              <Edge From="13" To="14" Label="Source2" />
+              <Edge From="14" To="15" Label="Source1" />
+            </Edges>
+          </Workflow>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Boolean">
+        <rx:Name>RecOn</rx:Name>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:Boolean">
+        <rx:Name>isOn</rx:Name>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="2" Label="Source1" />
+      <Edge From="0" To="10" Label="Source1" />
+      <Edge From="1" To="2" Label="Source2" />
+      <Edge From="1" To="4" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="6" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source2" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="12" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source2" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="15" Label="Source1" />
+      <Edge From="14" To="15" Label="Source2" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="15" To="18" Label="Source1" />
+      <Edge From="15" To="20" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="20" To="21" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

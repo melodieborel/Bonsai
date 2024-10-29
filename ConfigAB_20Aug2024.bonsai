@@ -106,20 +106,19 @@
           <Selector>Item2</Selector>
         </Builder>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingWithoutONIX_noAutoSave.bonsai">
-        <LedONvalue>11.627906976744185</LedONvalue>
-        <LedOFFvalue>0</LedOFFvalue>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingAB.bonsai">
+        <LedONvalue>6.9767441860465116</LedONvalue>
+        <FramesPerSecond>FPS30</FramesPerSecond>
         <Index>0</Index>
-        <Focus>41.860465116279073</Focus>
-        <SensorGain>High</SensorGain>
-        <FramesPerSecond>Fps30</FramesPerSecond>
-        <LedRespectsTrigger>false</LedRespectsTrigger>
+        <EWL>32.488372093023258</EWL>
+        <SensorGain>HIGH</SensorGain>
+        <LEDRespectsTrigger>false</LEDRespectsTrigger>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData_forMiniscope.bonsai">
         <animalID>Lou</animalID>
         <videoBaseName>miniscope_.avi</videoBaseName>
         <VideoDuration>PT10S</VideoDuration>
-        <VideoAndBreakDuration>PT0S</VideoAndBreakDuration>
+        <BreakandVideo>PT15S</BreakandVideo>
         <BreakDuration>PT5S</BreakDuration>
         <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
       </Expression>
@@ -127,7 +126,7 @@
         <delayEnd>PT0S</delayEnd>
         <trialDuration>PT1M</trialDuration>
         <triggerStop>F</triggerStop>
-        <triggerRec>Space</triggerRec>
+        <triggerRec>F9</triggerRec>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>ImageData</Selector>
@@ -152,7 +151,7 @@
               <Value>100</Value>
             </CapturePropertyAssignment>
           </CaptureProperties>
-          <Index>2</Index>
+          <Index>1</Index>
         </Builder>
       </Expression>
       <Expression xsi:type="Disable">
@@ -175,6 +174,15 @@
           <Selector>ImageData</Selector>
         </Builder>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="BooleanProperty">
+          <Value>false</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MulticastSubject">
+        <Name>RecOn</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\commutator-keypress-control.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\SleepCagesWebcam_noAutoSave.bonsai">
         <Index>1</Index>
         <CaptureProperties>
@@ -225,6 +233,7 @@
       <Edge From="25" To="28" Label="Source1" />
       <Edge From="26" To="27" Label="Source1" />
       <Edge From="29" To="30" Label="Source1" />
+      <Edge From="32" To="33" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
+<WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
@@ -7,7 +7,7 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>C:\Users\manip\Documents\data\Bonsai_data\</Value>
+          <Value>C:\Users\Manip7\Documents\data\Bonsai_data\</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
@@ -23,7 +23,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>cheeseboard</Value>
+          <Value>SleepBefore</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -49,37 +49,27 @@
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>trialName</Name>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
-          <nChannelsPerAnimal>32</nChannelsPerAnimal>
-          <BoardChannelsOEForDisplay xsi:nil="true" />
-          <BoardPortOE>9001</BoardPortOE>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
+        <nChannelsPerAnimal>32</nChannelsPerAnimal>
+        <BoardChannelsOEForDisplay xsi:nil="true" />
+        <BoardPortOE>9001</BoardPortOE>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item1</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <timestampsBaseName>OE_TS_1_.csv</timestampsBaseName>
-          <animalID>Lou</animalID>
-          <OEdataBasename>OE_data_1_.bin</OEdataBasename>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <timestampsBaseName>OE_TS_1_.csv</timestampsBaseName>
+        <animalID>Lou</animalID>
+        <OEdataBasename>OE_data_1_.bin</OEdataBasename>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-          <delayEnd>PT0S</delayEnd>
-          <trialDuration>PT10M</trialDuration>
-          <triggerStop>F5</triggerStop>
-          <triggerRec>F9</triggerRec>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT45M</trialDuration>
+        <triggerStop>F</triggerStop>
+        <triggerRec>B</triggerRec>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item2</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="MemberSelector">
@@ -96,9 +86,9 @@
       <Expression xsi:type="Disable">
         <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
           <delayEnd>PT0S</delayEnd>
-          <trialDuration>PT0S</trialDuration>
-          <triggerStop>F6</triggerStop>
-          <triggerRec>F9</triggerRec>
+          <trialDuration>PT5M</trialDuration>
+          <triggerStop>F</triggerStop>
+          <triggerRec>B</triggerRec>
         </Builder>
       </Expression>
       <Expression xsi:type="Disable">
@@ -107,72 +97,60 @@
         </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\MiniscopeImagingAB.bonsai">
-        <LedONvalue>6.9767441860465116</LedONvalue>
-        <FramesPerSecond>FPS30</FramesPerSecond>
-        <Index>0</Index>
-        <EWL>32.488372093023258</EWL>
-        <SensorGain>HIGH</SensorGain>
-        <LEDRespectsTrigger>false</LEDRespectsTrigger>
+        <LedONvalue>8</LedONvalue>
+        <Index>2</Index>
+        <Focus>44.2</Focus>
+        <SensorGain>Low</SensorGain>
+        <FramesPerSecond>Fps30</FramesPerSecond>
+        <LedRespectsTrigger>false</LedRespectsTrigger>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData_forMiniscope.bonsai">
         <animalID>Lou</animalID>
         <videoBaseName>miniscope_.avi</videoBaseName>
-        <VideoDuration>PT10S</VideoDuration>
-        <BreakandVideo>PT15S</BreakandVideo>
-        <BreakDuration>PT5S</BreakDuration>
+        <VideoDuration>PT15M</VideoDuration>
+        <BreakandVideo>PT25M</BreakandVideo>
+        <BreakDuration>PT10M</BreakDuration>
         <timestampsBaseName>miniscopeTS_.csv</timestampsBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
         <delayEnd>PT0S</delayEnd>
-        <trialDuration>PT1M</trialDuration>
+        <trialDuration>PT45M</trialDuration>
         <triggerStop>F</triggerStop>
-        <triggerRec>F9</triggerRec>
+        <triggerRec>B</triggerRec>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>ImageData</Selector>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\CheeseboardWebcam_noAutoSave.bonsai">
-          <CaptureProperties>
-            <CapturePropertyAssignment>
-              <Property>Brightness</Property>
-              <Value>0</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Exposure</Property>
-              <Value>-6</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Focus</Property>
-              <Value>0</Value>
-            </CapturePropertyAssignment>
-            <CapturePropertyAssignment>
-              <Property>Saturation</Property>
-              <Value>100</Value>
-            </CapturePropertyAssignment>
-          </CaptureProperties>
-          <Index>1</Index>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\CheeseboardWebcam_noAutoSave.bonsai">
+        <CaptureProperties>
+          <CapturePropertyAssignment>
+            <Property>Exposure</Property>
+            <Value>-5</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>Brightness</Property>
+            <Value>100</Value>
+          </CapturePropertyAssignment>
+          <CapturePropertyAssignment>
+            <Property>Focus</Property>
+            <Value>0</Value>
+          </CapturePropertyAssignment>
+        </CaptureProperties>
+        <Index>1</Index>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData_forWebcam.bonsai">
-          <animalID>Lou</animalID>
-          <videoBaseName>webcam_.avi</videoBaseName>
-          <timestampsBaseName>webcamTS_.csv</timestampsBaseName>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData_forWebcam.bonsai">
+        <animalID>Lou</animalID>
+        <videoBaseName>webcam_.avi</videoBaseName>
+        <timestampsBaseName>webcamTS_.csv</timestampsBaseName>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-          <delayEnd>PT0S</delayEnd>
-          <trialDuration>PT10M</trialDuration>
-          <triggerStop>F5</triggerStop>
-          <triggerRec>F9</triggerRec>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10M</trialDuration>
+        <triggerStop>F</triggerStop>
+        <triggerRec>B</triggerRec>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>ImageData</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>ImageData</Selector>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="BooleanProperty">
@@ -182,25 +160,19 @@
       <Expression xsi:type="MulticastSubject">
         <Name>RecOn</Name>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\commutator-keypress-control.bonsai" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\commutator-keypress-control.bonsai" />
+      </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\SleepCagesWebcam_noAutoSave.bonsai">
-        <Index>1</Index>
+        <Index>0</Index>
         <CaptureProperties>
           <CapturePropertyAssignment>
             <Property>Brightness</Property>
-            <Value>128</Value>
+            <Value>100</Value>
           </CapturePropertyAssignment>
           <CapturePropertyAssignment>
             <Property>Exposure</Property>
             <Value>-6</Value>
-          </CapturePropertyAssignment>
-          <CapturePropertyAssignment>
-            <Property>Focus</Property>
-            <Value>0</Value>
-          </CapturePropertyAssignment>
-          <CapturePropertyAssignment>
-            <Property>Zoom</Property>
-            <Value>0</Value>
           </CapturePropertyAssignment>
         </CaptureProperties>
       </Expression>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.4+2bab12753e452fa02540eb20e93664d41b112590"
+<WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:OpenEphys.Bonsai.Miniscope;assembly=OpenEphys.Bonsai.Miniscope"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:p2="clr-namespace:Bonsai.Miniscope;assembly=Bonsai.Miniscope"
+                 xmlns:p2="clr-namespace:OpenEphys.Miniscope;assembly=OpenEphys.Miniscope"
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
-                 xmlns:ipy="clr-namespace:Bonsai.Scripting.IronPython;assembly=Bonsai.Scripting.IronPython"
+                 xmlns:p3="clr-namespace:Bonsai.Scripting.IronPython;assembly=Bonsai.Scripting.IronPython"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
@@ -64,7 +64,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="DoubleProperty">
-          <Value>0</Value>
+          <Value>10</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:Condition">
@@ -104,24 +104,24 @@
       </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
-          <Property Name="LEDBrightness" />
+          <Property Name="LedBrightness" />
         </PropertyMappings>
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
-        <Property Name="FramesPerSecond" />
         <Property Name="Index" />
-        <Property Name="EWL" />
+        <Property Name="Focus" />
         <Property Name="SensorGain" />
-        <Property Name="LEDRespectsTrigger" />
+        <Property Name="FramesPerSecond" />
+        <Property Name="LedRespectsTrigger" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p2:UCLAMiniscopeV4">
+        <Combinator xsi:type="p2:UclaMiniscopeV4">
           <p2:Index>0</p2:Index>
-          <p2:LEDBrightness>0</p2:LEDBrightness>
-          <p2:EWL>0</p2:EWL>
-          <p2:SensorGain>HIGH</p2:SensorGain>
-          <p2:FramesPerSecond>FPS30</p2:FramesPerSecond>
-          <p2:LEDRespectsTrigger>false</p2:LEDRespectsTrigger>
+          <p2:LedBrightness>0</p2:LedBrightness>
+          <p2:Focus>0</p2:Focus>
+          <p2:SensorGain>Low</p2:SensorGain>
+          <p2:FramesPerSecond>Fps30</p2:FramesPerSecond>
+          <p2:LedRespectsTrigger>false</p2:LedRespectsTrigger>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -174,9 +174,9 @@
                 </Builder>
               </Expression>
               <Expression xsi:type="Disable">
-                <Builder xsi:type="ipy:PythonTransform">
-                  <ipy:Name>Heading</ipy:Name>
-                  <ipy:Script>import clr
+                <Builder xsi:type="p3:PythonTransform">
+                  <p3:Name>Heading</p3:Name>
+                  <p3:Script>import clr
 clr.AddReference("OpenCV.Net")
 from OpenCV.Net import *
 from math import atan2
@@ -188,7 +188,7 @@ def process(value):
   q2 = value[2].Val0;
   q3 = value[3].Val0;
 
-  return atan2((2 * (q0 * q3 + q1 * q2)), (1 - 2 * (q2**2 + q3**2)))</ipy:Script>
+  return atan2((2 * (q0 * q3 + q1 * q2)), (1 - 2 * (q2**2 + q3**2)))</p3:Script>
                 </Builder>
               </Expression>
               <Expression xsi:type="Disable">
@@ -226,8 +226,8 @@ def process(value):
                 </Builder>
               </Expression>
               <Expression xsi:type="Disable">
-                <Builder xsi:type="ipy:PythonTransform">
-                  <ipy:Script>from math import pi
+                <Builder xsi:type="p3:PythonTransform">
+                  <p3:Script>from math import pi
 
 @returns(str)
 def process(value):
@@ -246,7 +246,7 @@ def process(value):
 
   turn = (p - last) / (2 * pi)
 
-  return "{turn : %s}" % turn</ipy:Script>
+  return "{turn : %s}" % turn</p3:Script>
                 </Builder>
               </Expression>
               <Expression xsi:type="Combinator">

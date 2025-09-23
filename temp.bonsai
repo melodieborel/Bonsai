@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:Bonsai.OpenEphys;assembly=Bonsai.OpenEphys"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:AcquisitionBoard">
+          <p1:BoardLeds>false</p1:BoardLeds>
+          <p1:BoardIndex>-1</p1:BoardIndex>
+          <p1:BufferCount>256</p1:BufferCount>
+          <p1:SampleRate>SampleRate20000Hz</p1:SampleRate>
+          <p1:ExternalFastSettleEnabled>false</p1:ExternalFastSettleEnabled>
+          <p1:LowerBandwidth>0.1</p1:LowerBandwidth>
+          <p1:UpperBandwidth>7500</p1:UpperBandwidth>
+          <p1:DspCutoffFrequency>1</p1:DspCutoffFrequency>
+          <p1:DspEnabled>true</p1:DspEnabled>
+          <p1:CableDelayA xsi:nil="true" />
+          <p1:CableDelayB xsi:nil="true" />
+          <p1:CableDelayC xsi:nil="true" />
+          <p1:CableDelayD xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>AmplifierData</Selector>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Timestamp</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>data</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>ts</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="rx:ToDictionary">
+        <rx:KeySelector>Item3,Item4</rx:KeySelector>
+        <rx:ElementSelector>Item1,Item2</rx:ElementSelector>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="0" To="2" Label="Source1" />
+      <Edge From="1" To="5" Label="Source1" />
+      <Edge From="2" To="5" Label="Source2" />
+      <Edge From="3" To="5" Label="Source3" />
+      <Edge From="4" To="5" Label="Source4" />
+      <Edge From="5" To="6" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

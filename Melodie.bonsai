@@ -1,57 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
-                 xmlns:p1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:onix1="clr-namespace:OpenEphys.Onix1;assembly=OpenEphys.Onix1"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
-                 xmlns:p2="clr-namespace:Bonsai.OpenEphys;assembly=Bonsai.OpenEphys"
-                 xmlns:p3="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
+                 xmlns:p1="clr-namespace:Bonsai.OpenEphys;assembly=Bonsai.OpenEphys"
+                 xmlns:p2="clr-namespace:Bonsai.ONIX;assembly=Bonsai.ONIX"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="wie:KeyDown">
-          <wie:Filter>B</wie:Filter>
-          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Equal">
-        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
-          <Value>B</Value>
-        </Operand>
-      </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>triggerRec</Name>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="wie:KeyDown">
-          <wie:Filter>F</wie:Filter>
-          <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Equal">
-        <Operand xsi:type="WorkflowProperty" TypeArguments="p1:Keys">
-          <Value>F</Value>
-        </Operand>
-      </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>triggerStop</Name>
-      </Expression>
-      <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Value" DisplayName="trialDuration" />
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="TimeSpanProperty">
-          <Value>PT0S</Value>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="rx:PublishSubject">
-        <Name>trialDuration</Name>
-      </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai">
-        <folderBaseName>../../../Documents/data/Expe</folderBaseName>
+        <folderBaseName>../../../Documents/data/Tests</folderBaseName>
       </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>pathName</Name>
@@ -374,20 +333,20 @@
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="Combinator">
-          <Combinator xsi:type="p2:AcquisitionBoard">
-            <p2:BoardLeds>false</p2:BoardLeds>
-            <p2:BoardIndex>-1</p2:BoardIndex>
-            <p2:BufferCount>256</p2:BufferCount>
-            <p2:SampleRate>SampleRate20000Hz</p2:SampleRate>
-            <p2:ExternalFastSettleEnabled>false</p2:ExternalFastSettleEnabled>
-            <p2:LowerBandwidth>0.1</p2:LowerBandwidth>
-            <p2:UpperBandwidth>7500</p2:UpperBandwidth>
-            <p2:DspCutoffFrequency>1</p2:DspCutoffFrequency>
-            <p2:DspEnabled>true</p2:DspEnabled>
-            <p2:CableDelayA xsi:nil="true" />
-            <p2:CableDelayB xsi:nil="true" />
-            <p2:CableDelayC xsi:nil="true" />
-            <p2:CableDelayD xsi:nil="true" />
+          <Combinator xsi:type="p1:AcquisitionBoard">
+            <p1:BoardLeds>false</p1:BoardLeds>
+            <p1:BoardIndex>-1</p1:BoardIndex>
+            <p1:BufferCount>256</p1:BufferCount>
+            <p1:SampleRate>SampleRate20000Hz</p1:SampleRate>
+            <p1:ExternalFastSettleEnabled>false</p1:ExternalFastSettleEnabled>
+            <p1:LowerBandwidth>0.1</p1:LowerBandwidth>
+            <p1:UpperBandwidth>7500</p1:UpperBandwidth>
+            <p1:DspCutoffFrequency>1</p1:DspCutoffFrequency>
+            <p1:DspEnabled>true</p1:DspEnabled>
+            <p1:CableDelayA xsi:nil="true" />
+            <p1:CableDelayB xsi:nil="true" />
+            <p1:CableDelayC xsi:nil="true" />
+            <p1:CableDelayD xsi:nil="true" />
           </Combinator>
         </Builder>
       </Expression>
@@ -517,16 +476,16 @@
                 <Name>digitalStim</Name>
               </Expression>
               <Expression xsi:type="Combinator">
-                <Combinator xsi:type="p3:DigitalIODevice">
-                  <p3:DeviceAddress>
-                    <p3:HardwareSlot>
-                      <p3:Driver>riffa</p3:Driver>
-                      <p3:Index>0</p3:Index>
-                    </p3:HardwareSlot>
-                    <p3:Address>7</p3:Address>
-                  </p3:DeviceAddress>
-                  <p3:LEDBrightness>13.333333333333334</p3:LEDBrightness>
-                  <p3:EnableStream>true</p3:EnableStream>
+                <Combinator xsi:type="p2:DigitalIODevice">
+                  <p2:DeviceAddress>
+                    <p2:HardwareSlot>
+                      <p2:Driver>riffa</p2:Driver>
+                      <p2:Index>0</p2:Index>
+                    </p2:HardwareSlot>
+                    <p2:Address>7</p2:Address>
+                  </p2:DeviceAddress>
+                  <p2:LEDBrightness>13.333333333333334</p2:LEDBrightness>
+                  <p2:EnableStream>true</p2:EnableStream>
                 </Combinator>
               </Expression>
               <Expression xsi:type="MemberSelector">
@@ -572,15 +531,14 @@
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\OEBoardMultiple.bonsai">
         <nChannelsPerAnimal>32</nChannelsPerAnimal>
-        <BoardChannelsOEForDisplay xsi:nil="true" />
-        <BoardPortOE>9001</BoardPortOE>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Item1</Selector>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Animal1</Name>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-        <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
         <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <animalID>Mouse1</animalID>
+        <timestampsBaseName>OE_timestamps_.bin</timestampsBaseName>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
         <delayEnd>PT0S</delayEnd>
@@ -588,52 +546,50 @@
         <triggerStop>F</triggerStop>
         <triggerRec>B</triggerRec>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="MemberSelector">
-          <Selector>Item2</Selector>
-        </Builder>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
-          <dataBaseName>OE_32ch_data_.bin</dataBaseName>
-          <timestampsBaseName>OE_timestamps_.csv</timestampsBaseName>
-        </Builder>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Animal2</Name>
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
-          <DueTime>PT0S</DueTime>
-        </Builder>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <animalID>Mouse2</animalID>
+        <timestampsBaseName>OE_timestamps_.bin</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>Z</triggerStop>
+        <triggerRec>H</triggerRec>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
       </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
-      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
+      <Edge From="4" To="6" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
-      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
       <Edge From="9" To="10" Label="Source1" />
-      <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="13" To="14" Label="Source1" />
-      <Edge From="13" To="15" Label="Source1" />
-      <Edge From="15" To="16" Label="Source1" />
-      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
       <Edge From="18" To="19" Label="Source1" />
-      <Edge From="21" To="22" Label="Source1" />
+      <Edge From="19" To="20" Label="Source1" />
       <Edge From="22" To="23" Label="Source1" />
-      <Edge From="23" To="24" Label="Source1" />
-      <Edge From="25" To="26" Label="Source1" />
       <Edge From="27" To="28" Label="Source1" />
-      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="30" To="33" Label="Source1" />
       <Edge From="31" To="32" Label="Source1" />
-      <Edge From="36" To="37" Label="Source1" />
-      <Edge From="38" To="39" Label="Source1" />
-      <Edge From="38" To="42" Label="Source1" />
-      <Edge From="39" To="40" Label="Source1" />
-      <Edge From="40" To="41" Label="Source1" />
-      <Edge From="42" To="43" Label="Source1" />
-      <Edge From="43" To="44" Label="Source1" />
+      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="34" To="37" Label="Source1" />
+      <Edge From="35" To="36" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -26,6 +26,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path>C:\Users\Manip7\Desktop\matrix.bin</dsp:Path>
           <dsp:Suffix>None</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -71,6 +72,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path>C:\Users\Manip7\Desktop\matrix2.bin</dsp:Path>
           <dsp:Suffix>None</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>

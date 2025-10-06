@@ -9,39 +9,54 @@
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\MetaInfo.bonsai">
-        <MetaFileName>meta_info.csv</MetaFileName>
-        <RigInfo>Z745</RigInfo>
-        <User>Melodie</User>
-        <Project>NPX</Project>
-        <numBlocks>2</numBlocks>
-        <preStimLength>10</preStimLength>
-        <StimX>100</StimX>
-        <StimY>0</StimY>
-        <Value>42</Value>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="Extensions\MetaInfo.bonsai">
+          <MetaFileName>meta_info.csv</MetaFileName>
+          <rootPath>../../../Documents/data/Tests</rootPath>
+          <User>Melodie</User>
+          <ProjectName>project</ProjectName>
+          <numBlocks>2</numBlocks>
+          <preStimLength>10</preStimLength>
+          <StimX>100</StimX>
+          <StimY>0</StimY>
+          <Value>42</Value>
+          <folderbase>../../../Documents/data/Tests</folderbase>
+        </Builder>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>ProjectName</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>ProjectName</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Value" DisplayName="folderbase" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="ExternalizedMapping">
+          <Property Name="Value" DisplayName="folderbase" />
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>../../../Documents/data/Tests</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="StringProperty">
+            <Value>../../../Documents/data/Tests</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:CombineLatest" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="rx:CombineLatest" />
+        </Builder>
       </Expression>
-      <Expression xsi:type="Format">
-        <Format>{1}/{0}/raw_data/</Format>
-        <Selector>Item1,Item2</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Format">
+          <Format>{1}/{0}/raw_data/</Format>
+          <Selector>Item1,Item2</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="folderBaseName" />
-        </PropertyMappings>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="folderBaseName" />
+          </PropertyMappings>
+        </Builder>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\generateTimestampedFolder.bonsai">
         <folderBaseName>../../../Documents/data/Tests/NPX/raw_data/</folderBaseName>
@@ -600,6 +615,40 @@
       <Expression xsi:type="MemberSelector">
         <Selector>Item1</Selector>
       </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Animal3</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <animalID>Mouse3</animalID>
+        <timestampsBaseName>OE_timestamps_.bin</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>Z</triggerStop>
+        <triggerRec>H</triggerRec>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Animal4</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\saveMatrixData.bonsai">
+        <dataBaseName>OE_32ch_data_.bin</dataBaseName>
+        <animalID>Mouse4</animalID>
+        <timestampsBaseName>OE_timestamps_.bin</timestampsBaseName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\timing.bonsai">
+        <delayEnd>PT0S</delayEnd>
+        <trialDuration>PT10S</trialDuration>
+        <triggerStop>F</triggerStop>
+        <triggerRec>B</triggerRec>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="1" To="4" Label="Source1" />
@@ -630,6 +679,12 @@
       <Edge From="41" To="42" Label="Source1" />
       <Edge From="41" To="44" Label="Source1" />
       <Edge From="42" To="43" Label="Source1" />
+      <Edge From="45" To="46" Label="Source1" />
+      <Edge From="45" To="48" Label="Source1" />
+      <Edge From="46" To="47" Label="Source1" />
+      <Edge From="49" To="50" Label="Source1" />
+      <Edge From="49" To="52" Label="Source1" />
+      <Edge From="50" To="51" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

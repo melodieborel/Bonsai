@@ -55,7 +55,7 @@
         </PropertyMappings>
       </Expression>
       <Expression xsi:type="io:CsvWriter">
-        <io:FileName>..\..\..\..\Documents\data\Tests\raw_data\condition\_2025-09-30_16-26-45\metaData.csv</io:FileName>
+        <io:FileName>..\..\..\Documents\data\Tests\raw_data\condition\_2025-09-30_16-26-45\metaData.csv</io:FileName>
         <io:Delimiter>,</io:Delimiter>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>

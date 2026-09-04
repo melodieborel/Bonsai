@@ -31,7 +31,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="BooleanProperty">
-                <Value>false</Value>
+                <Value>true</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="BitwiseNot" />
@@ -141,7 +141,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="wie:KeyDown">
-          <wie:Filter>F</wie:Filter>
+          <wie:Filter>D</wie:Filter>
           <wie:SuppressRepetitions>true</wie:SuppressRepetitions>
         </Combinator>
       </Expression>

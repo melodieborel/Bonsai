@@ -2,7 +2,6 @@
 <WorkflowBuilder Version="2.9.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
@@ -19,15 +18,18 @@
         <Name>projectName</Name>
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Value" DisplayName="timestampsBaseName" Description="Base name for file saving webcam timestamps" />
+        <Property Name="Value" DisplayName="animalID" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty">
-          <Value>OE_timestamps_.csv</Value>
+          <Value>animalID</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>conditionName</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>trialName</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty" />
@@ -41,56 +43,6 @@
       <Expression xsi:type="Format">
         <Format>{0}_{1:D2}_{2:D2}</Format>
         <Selector>Year,Month,Day</Selector>
-      </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>trialName</Name>
-      </Expression>
-      <Expression xsi:type="ExternalizedMapping">
-        <Property Name="Value" DisplayName="animalID" />
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>animalID</Value>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:CombineLatest" />
-      </Expression>
-      <Expression xsi:type="Format">
-        <Format>{0}/{1}/raw_data/{6}/{3}/{5}_{4}/{2}</Format>
-        <Selector>Item1,Item2,Item3,Item4,Item5,Item6,Item7</Selector>
-      </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="FileName" />
-        </PropertyMappings>
-      </Expression>
-      <Expression xsi:type="WorkflowInput">
-        <Name>Source1</Name>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Item1</Selector>
-      </Expression>
-      <Expression xsi:type="io:CsvWriter">
-        <io:FileName>./data_2024-02-29_09-55-06/webcam_timestamps_.csv</io:FileName>
-        <io:Append>false</io:Append>
-        <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
-        <io:IncludeHeader>false</io:IncludeHeader>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Item2</Selector>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>animalID</Value>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>projectName</Name>
-      </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>rootPath</Name>
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Value" DisplayName="OEdataBasename" />
@@ -100,8 +52,52 @@
           <Value>OE_32ch_data_.bin</Value>
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:CombineLatest" />
+      </Expression>
+      <Expression xsi:type="Format">
+        <Format>{0}/{1}/raw_data/{2}/{3}/{4}_{5}/{6}</Format>
+        <Selector>Item1,Item2,Item3,Item4,Item5,Item6,Item7</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Path" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="WorkflowInput">
+        <Name>Source1</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path />
+          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Overwrite>false</dsp:Overwrite>
+          <dsp:Layout>ColumnMajor</dsp:Layout>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>rootPath</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>projectName</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>animalID</Value>
+        </Combinator>
+      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>conditionName</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>trialName</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="StringProperty" />
@@ -116,14 +112,19 @@
         <Format>{0}_{1:D2}_{2:D2}</Format>
         <Selector>Year,Month,Day</Selector>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>trialName</Name>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="timestampsBaseName" Description="Base name for file saving webcam timestamps" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="StringProperty">
+          <Value>OE_timestamps_.bin</Value>
+        </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:CombineLatest" />
       </Expression>
       <Expression xsi:type="Format">
-        <Format>{1}/{2}/raw_data/{0}/{4}/{6}_{5}/{3}</Format>
+        <Format>{0}/{1}/raw_data/{2}/{3}/{4}_{5}/{6}</Format>
         <Selector>Item1,Item2,Item3,Item4,Item5,Item6,Item7</Selector>
       </Expression>
       <Expression xsi:type="PropertyMapping">
@@ -139,44 +140,43 @@
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
       </Expression>
-      <Expression xsi:type="WorkflowOutput" />
     </Nodes>
     <Edges>
       <Edge From="1" To="13" Label="Source1" />
       <Edge From="2" To="13" Label="Source2" />
       <Edge From="3" To="4" Label="Source1" />
+      <Edge From="3" To="23" Label="Source1" />
       <Edge From="4" To="13" Label="Source3" />
       <Edge From="5" To="13" Label="Source4" />
-      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="6" To="13" Label="Source5" />
       <Edge From="7" To="8" Label="Source1" />
       <Edge From="8" To="9" Label="Source1" />
-      <Edge From="9" To="13" Label="Source5" />
+      <Edge From="9" To="10" Label="Source1" />
       <Edge From="10" To="13" Label="Source6" />
       <Edge From="11" To="12" Label="Source1" />
-      <Edge From="11" To="20" Label="Source1" />
       <Edge From="12" To="13" Label="Source7" />
       <Edge From="13" To="14" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
       <Edge From="15" To="18" Label="Source1" />
       <Edge From="16" To="17" Label="Source1" />
-      <Edge From="16" To="19" Label="Source1" />
+      <Edge From="16" To="20" Label="Source1" />
       <Edge From="17" To="18" Label="Source2" />
-      <Edge From="19" To="34" Label="Source1" />
-      <Edge From="20" To="31" Label="Source1" />
-      <Edge From="21" To="31" Label="Source2" />
-      <Edge From="22" To="31" Label="Source3" />
-      <Edge From="23" To="24" Label="Source1" />
-      <Edge From="24" To="31" Label="Source4" />
-      <Edge From="25" To="31" Label="Source5" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="20" To="35" Label="Source1" />
+      <Edge From="21" To="32" Label="Source1" />
+      <Edge From="22" To="32" Label="Source2" />
+      <Edge From="23" To="32" Label="Source3" />
+      <Edge From="24" To="32" Label="Source4" />
+      <Edge From="25" To="32" Label="Source5" />
       <Edge From="26" To="27" Label="Source1" />
       <Edge From="27" To="28" Label="Source1" />
       <Edge From="28" To="29" Label="Source1" />
-      <Edge From="29" To="31" Label="Source6" />
-      <Edge From="30" To="31" Label="Source7" />
-      <Edge From="31" To="32" Label="Source1" />
+      <Edge From="29" To="32" Label="Source6" />
+      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="31" To="32" Label="Source7" />
       <Edge From="32" To="33" Label="Source1" />
-      <Edge From="33" To="34" Label="Source2" />
-      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="34" To="35" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

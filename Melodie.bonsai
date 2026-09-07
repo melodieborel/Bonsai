@@ -164,8 +164,9 @@
               <onix1:LfpAmplifierGain>Gain50</onix1:LfpAmplifierGain>
               <onix1:Reference>External</onix1:Reference>
               <onix1:SpikeFilter>true</onix1:SpikeFilter>
-              <onix1:GainCalibrationFileName>C:\Users\Manip1\Documents\NPX\SO5170\23328315351\23328315351_gainCalValues.csv</onix1:GainCalibrationFileName>
-              <onix1:AdcCalibrationFileName>C:\Users\Manip1\Documents\NPX\SO5170\23328315351\23328315351_ADCCalibration.csv</onix1:AdcCalibrationFileName>
+              <onix1:GainCalibrationFileName>C:\Users\Manip1\Documents\NPX\SO5170\23328315552_m12111_m12127\23328315552_gainCalValues.csv</onix1:GainCalibrationFileName>
+              <onix1:AdcCalibrationFileName>C:\Users\Manip1\Documents\NPX\SO5170\23328315552_m12111_m12127\23328315552_ADCCalibration.csv</onix1:AdcCalibrationFileName>
+              <onix1:ProbeInterfaceFileName>F:\Audrey\Projets\AHay2025_NPX_Thalamus_Alz_Melodie\raw_data\m12128\probe_m12128.json</onix1:ProbeInterfaceFileName>
               <onix1:InvertPolarity>false</onix1:InvertPolarity>
             </onix1:ProbeConfiguration>
           </onix1:NeuropixelsV1>

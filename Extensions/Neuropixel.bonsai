@@ -102,7 +102,7 @@
         <Combinator xsi:type="onix1:NeuropixelsV1eData">
           <onix1:DeviceName>HeadstageNeuropixelsV1e/NeuropixelsV1</onix1:DeviceName>
           <onix1:BufferSize>36</onix1:BufferSize>
-          <onix1:OrderByDepth>false</onix1:OrderByDepth>
+          <onix1:OrderByDepth>true</onix1:OrderByDepth>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -150,7 +150,7 @@
         <Combinator xsi:type="onix1:NeuropixelsV1eData">
           <onix1:DeviceName>HeadstageNeuropixelsV1e/NeuropixelsV1</onix1:DeviceName>
           <onix1:BufferSize>36</onix1:BufferSize>
-          <onix1:OrderByDepth>false</onix1:OrderByDepth>
+          <onix1:OrderByDepth>true</onix1:OrderByDepth>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -226,7 +226,7 @@
         <Combinator xsi:type="onix1:NeuropixelsV1eData">
           <onix1:DeviceName>HeadstageNeuropixelsV1e/NeuropixelsV1</onix1:DeviceName>
           <onix1:BufferSize>36</onix1:BufferSize>
-          <onix1:OrderByDepth>false</onix1:OrderByDepth>
+          <onix1:OrderByDepth>true</onix1:OrderByDepth>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">

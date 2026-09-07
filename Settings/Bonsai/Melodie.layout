@@ -30,19 +30,19 @@
   </WindowSettings>
   <WindowSettings Index="15">
     <Location>
-      <X>693</X>
-      <Y>36</Y>
+      <X>323</X>
+      <Y>363</Y>
     </Location>
     <Size>
       <Width>656</Width>
-      <Height>1044</Height>
+      <Height>990</Height>
     </Size>
     <VisualizerTypeName>Bonsai.Ephys.Design.WaveformVisualizer</VisualizerTypeName>
     <VisualizerSettings>
       <WaveformVisualizer>
         <ColorTheme>Light</ColorTheme>
-        <ChannelHeight>50</ChannelHeight>
-        <Timebase>2</Timebase>
+        <ChannelHeight>30</ChannelHeight>
+        <Timebase>5</Timebase>
         <ColorGrouping>1</ColorGrouping>
         <UseFixedRange>false</UseFixedRange>
         <RangeAmplitude>100</RangeAmplitude>
@@ -52,12 +52,12 @@
   <WindowSettings Index="18">
     <Visible>false</Visible>
     <Location>
-      <X>967</X>
-      <Y>127</Y>
+      <X>111</X>
+      <Y>177</Y>
     </Location>
     <Size>
       <Width>1636</Width>
-      <Height>1111</Height>
+      <Height>1100</Height>
     </Size>
     <VisualizerTypeName>Bonsai.Dsp.Design.MatVisualizer</VisualizerTypeName>
     <VisualizerSettings>
@@ -79,21 +79,21 @@
   </WindowSettings>
   <WindowSettings Index="20">
     <Location>
-      <X>1428</X>
-      <Y>8</Y>
+      <X>551</X>
+      <Y>67</Y>
     </Location>
     <Size>
       <Width>1194</Width>
-      <Height>1399</Height>
+      <Height>1100</Height>
     </Size>
     <VisualizerTypeName>Bonsai.Ephys.Design.WaveformVisualizer</VisualizerTypeName>
     <VisualizerSettings>
       <WaveformVisualizer>
         <ColorTheme>Light</ColorTheme>
         <ChannelHeight>20</ChannelHeight>
-        <Timebase>5</Timebase>
+        <Timebase>2</Timebase>
         <ColorGrouping>1</ColorGrouping>
-        <UseFixedRange>true</UseFixedRange>
+        <UseFixedRange>false</UseFixedRange>
         <RangeAmplitude>100</RangeAmplitude>
       </WaveformVisualizer>
     </VisualizerSettings>

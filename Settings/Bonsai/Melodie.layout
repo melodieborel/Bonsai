@@ -30,12 +30,12 @@
   </WindowSettings>
   <WindowSettings Index="15">
     <Location>
-      <X>323</X>
-      <Y>363</Y>
+      <X>510</X>
+      <Y>54</Y>
     </Location>
     <Size>
-      <Width>656</Width>
-      <Height>990</Height>
+      <Width>509</Width>
+      <Height>859</Height>
     </Size>
     <VisualizerTypeName>Bonsai.Ephys.Design.WaveformVisualizer</VisualizerTypeName>
     <VisualizerSettings>
@@ -44,7 +44,7 @@
         <ChannelHeight>30</ChannelHeight>
         <Timebase>5</Timebase>
         <ColorGrouping>1</ColorGrouping>
-        <UseFixedRange>false</UseFixedRange>
+        <UseFixedRange>true</UseFixedRange>
         <RangeAmplitude>100</RangeAmplitude>
       </WaveformVisualizer>
     </VisualizerSettings>
@@ -79,23 +79,57 @@
   </WindowSettings>
   <WindowSettings Index="20">
     <Location>
-      <X>551</X>
-      <Y>67</Y>
+      <X>844</X>
+      <Y>0</Y>
     </Location>
     <Size>
-      <Width>1194</Width>
-      <Height>1100</Height>
+      <Width>816</Width>
+      <Height>859</Height>
     </Size>
     <VisualizerTypeName>Bonsai.Ephys.Design.WaveformVisualizer</VisualizerTypeName>
     <VisualizerSettings>
       <WaveformVisualizer>
         <ColorTheme>Light</ColorTheme>
-        <ChannelHeight>20</ChannelHeight>
-        <Timebase>2</Timebase>
+        <ChannelHeight>50</ChannelHeight>
+        <Timebase>3</Timebase>
         <ColorGrouping>1</ColorGrouping>
         <UseFixedRange>false</UseFixedRange>
         <RangeAmplitude>100</RangeAmplitude>
       </WaveformVisualizer>
+    </VisualizerSettings>
+  </WindowSettings>
+  <WindowSettings Index="23">
+    <Visible>false</Visible>
+    <Location>
+      <X>52</X>
+      <Y>52</Y>
+    </Location>
+    <Size>
+      <Width>336</Width>
+      <Height>65</Height>
+    </Size>
+    <VisualizerTypeName>Bonsai.Design.ObjectTextVisualizer</VisualizerTypeName>
+    <VisualizerSettings>
+      <ObjectTextVisualizer />
+    </VisualizerSettings>
+  </WindowSettings>
+  <WindowSettings Index="25">
+    <Location>
+      <X>102</X>
+      <Y>581</Y>
+    </Location>
+    <Size>
+      <Width>416</Width>
+      <Height>279</Height>
+    </Size>
+    <VisualizerTypeName>OpenEphys.Onix1.Design.QuaternionVisualizer</VisualizerTypeName>
+    <VisualizerSettings>
+      <QuaternionVisualizer>
+        <Capacity>640</Capacity>
+        <Min>-1</Min>
+        <Max>1</Max>
+        <AutoScale>true</AutoScale>
+      </QuaternionVisualizer>
     </VisualizerSettings>
   </WindowSettings>
 </VisualizerLayout>
